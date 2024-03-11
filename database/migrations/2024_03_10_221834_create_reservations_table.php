@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('set null');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->timestamp('check_in');
-            $table->timestamp('check_out');
+            $table->timestamp('check_in')->nullable();
+            $table->timestamp('check_out')->nullable();
             $table->string('status')->default('pending');  // pending, confirmed, cancelled
             $table->string('payment_status')->default('pending');  // visa, cash
             $table->timestamps();

@@ -4,7 +4,7 @@
         <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
              class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">بنك الدم</span>
+        <span class="brand-text font-weight-light">حجز الفنادق</span>
     </a>
 
     <!-- Sidebar -->
@@ -24,8 +24,8 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item has-treeview {{ $active == 'dashboard' ? 'menu-open': '' }}">
-                    <a href="{{ route('homeDashboard') }}" class="nav-link {{ $active == 'dashboard' ? 'active': '' }}">
+                <li class="nav-item  has-treeview {{ $active == 'dashboard' ? 'menu-open': '' }}">
+                    <a href="{{ route('homeDashboard') }}" class="nav-link bg-secondary !important {{ $active == 'dashboard' ? 'active': '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             الرئيسية
@@ -34,90 +34,95 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'blood_types' ? 'active': '' }}">
-                        <i class="nav-icon fas fa-eye-dropper"></i>
+                    <a href="#" class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
+                        <i class="nav-icon fas fa-hotel"></i>
                         <p>
-                            فصائل الدم
+                            الفنادق
                             <i class="fas fa-angle-left right"></i>
-                            @php
-                                $blood_types = \App\Models\BloodType::all();
-                                $blood_types->map(function ($blood_type) {
-                                    if ($blood_type->count < 5)
-                                       echo '<i class="fas fa-bell right"></i>';
-                                    });
-                            @endphp
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('blood_types.index') }}"
-                               class="nav-link {{ $active == 'blood_types' ? 'active': '' }}">
+                            <a href="{{ route('hotels.index') }}"
+                               class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('blood_types.create') }}"
-                               class="nav-link {{ $active == 'blood_types' ? 'active': '' }}">
+                            <a href="{{ route('hotels.create') }}"
+                               class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>اضف فصيلة</p>
+                                <p>اضف فتدق</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'branches' ? 'active': '' }}">
-                        <i class="nav-icon fas fa-map-marker"></i>
+                    <a href="#" class="nav-link {{ $active == 'rooms' ? 'active': '' }}">
+                        <i class="nav-icon fas fa-home"></i>
                         <p>
-                            الفروع
+                            الغرف
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('branches.index') }}"
-                               class="nav-link {{ $active == 'branches' ? 'active': '' }}">
+                            <a href="{{ route('rooms.index') }}"
+                               class="nav-link {{ $active == 'rooms' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('branches.create') }}"
-                               class="nav-link {{ $active == 'branches' ? 'active': '' }}">
+                            <a href="{{ route('rooms.create') }}"
+                               class="nav-link {{ $active == 'rooms' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>اضف فرع</p>
+                                <p>اضف غرفه</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'donors' ? 'active': '' }}">
+                    <a href="#" class="nav-link {{ $active == 'reservations' ? 'active': '' }}">
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>
-                            المتبرعين
+                            الحجوزات
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('donors.index') }}"
-                               class="nav-link {{ $active == 'donors' ? 'active': '' }}">
+                            <a href="{{ route('reservations.index') }}"
+                               class="nav-link {{ $active == 'reservations' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
 
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link {{ $active == 'rates' ? 'active': '' }}">
+                        <i class="nav-icon fas fa-star"></i>
+                        <p>
+                            التقييمات
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('donors.create') }}"
-                               class="nav-link {{ $active == 'donors' ? 'active': '' }}">
+                            <a href="{{ route('rates.index') }}"
+                               class="nav-link {{ $active == 'rates' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>اضف متبرع</p>
+                                <p>الكل</p>
                             </a>
                         </li>
+
                     </ul>
                 </li>
 
@@ -144,25 +149,6 @@
                                 <p>اضف مستخدم</p>
                             </a>
                         </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'orders' ? 'active': '' }}">
-                        <i class="nav-icon fas fa-cart-plus"></i>
-                        <p>
-                            الطلبات
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item" {{ $active == 'orders' ? 'active': '' }}>
-                            <a href="{{ route('orders.index') }}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>الكل</p>
-                            </a>
-                        </li>
-
                     </ul>
                 </li>
 
