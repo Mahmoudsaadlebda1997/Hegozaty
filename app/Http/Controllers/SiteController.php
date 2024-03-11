@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BloodType;
-use App\Models\Donor;
-use App\Models\Order;
 use App\Models\User;
-use App\Models\Branch;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,9 +10,7 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $blood_types = BloodType::where('count','>',0)->get();
-        $branches = Branch::all();
-        return view('site.index', compact('blood_types','branches'));
+        return view('site.home');
     }
 
     public function storeDonor(Request $request)
