@@ -12,14 +12,16 @@ class UserController extends Controller
     // Display a listing of the users
     public function index()
     {
+        $active ='users';
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users','active'));
     }
 
     // Show the form for creating a new user
     public function create()
     {
-        return view('users.create');
+        $active ='users';
+        return view('admin.users.create',compact('active'));
     }
 
     // Store a newly created user in the database
@@ -42,13 +44,15 @@ class UserController extends Controller
     // Display the specified user
     public function show(User $user)
     {
-        return view('users.show', compact('user'));
+        $active ='users';
+        return view('users.show', compact('user','active'));
     }
 
     // Show the form for editing the specified user
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $active = 'users';
+        return view('users.edit', compact('user','active'));
     }
 
     // Update the specified user in the database

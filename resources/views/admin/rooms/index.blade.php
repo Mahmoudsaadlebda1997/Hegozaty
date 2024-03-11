@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"> الرئيسية - المستخدمين</h1>
+                    <h1 class="m-0 text-dark"> الرئيسية - قائمة الغرف</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">الرئيسية</a></li>
-                        <li class="breadcrumb-item active"> المستخدمين</li>
+                        <li class="breadcrumb-item active">قائمة الغرف</li>
                     </ol>
                 </div>
             </div>
@@ -24,34 +24,36 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title" style="float: right">قائمة المستخدمين</h3>
+                        <h3 class="card-title" style="float: right">قائمة الغرف</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>الاسم</th>
-                                <th>البريد الالكتروني</th>
-                                <th>الموبايل</th>
+                                <th>#</th>
+                                <th>اسم الغرفة</th>
+                                <th>اسم الفندق</th>
+                                <th>السعة</th>
+                                <th>السعر</th>
                                 <th>الاجراء المتخذ</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($users as $user)
+                            @foreach($rooms as $room)
                                 <tr>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $room->id }}</td>
+                                    <td>{{ $room->name }}</td>
+                                    <td>{{ $room->hotel->name }}</td>
+                                    <td>{{ $room->capacity }}</td>
+                                    <td>{{ $room->price }}</td>
                                     <td>
-                                        <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">تعديل</a>
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="post"
-                                              style="display: inline-block;">
+                                        <a href="{{ route('rooms.show', $room->id) }}" class="btn btn-info btn-sm">عرض</a>
+                                        <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm">تعديل</a>
+                                        <form action="{{ route('rooms.destroy', $room->id) }}" method="post" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('هل أنت متأكد؟')">حذف
-                                            </button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
                                         </form>
                                     </td>
                                 </tr>
