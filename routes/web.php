@@ -39,7 +39,6 @@ Route::middleware('web')->group(function () {
         Route::prefix('admin')->group(function () {
             Route::resource('hotels', HotelController::class);
             Route::resource('users', UserController::class);
-            Route::resource('rates', RateController::class);
             Route::resource('rooms', RoomController::class);
             Route::resource('reservations', ReservationController::class);
             Route::resource('rates', RateController::class);
