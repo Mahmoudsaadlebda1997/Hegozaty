@@ -34,7 +34,6 @@
                                 <th>الاسم</th>
                                 <th>البريد الالكتروني</th>
                                 <th>الموبايل</th>
-                                <th>عدد طلبات اكياس الدم</th>
                                 <th>الاجراء المتخذ</th>
                             </tr>
                             </thead>
@@ -44,7 +43,6 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->orders_count }}</td>
                                     <td>
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">تعديل</a>
                                         <form action="{{ route('users.destroy', $user->id) }}" method="post"
