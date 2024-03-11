@@ -16,11 +16,11 @@ return new class extends Migration {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->unsignedBigInteger('hotel_id')->nullable();
             $table->foreign('hotel_id')->references('id')->on('hotels')->onDelete('set null');
-            $table->string('rate'); // 1 => 5
+            $table->string('rate')->nullable(); // 1 => 5
             $table->string('comment')->nullable();
-
             $table->timestamps();
         });
+
     }
 
     /**

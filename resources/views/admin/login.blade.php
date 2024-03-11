@@ -53,7 +53,7 @@
         }
 
         .card-header {
-            background-color: #FF0000;
+            background-color: darkgreen;
             color: #fff;
             text-align: right;
         }
@@ -101,7 +101,7 @@
             </ul>
 
 
-            <a class="navbar-brand" href="#">بنك الدم - لوحة التحكم</a>
+            <a class="navbar-brand" href="#">حجز الفنادق - لوحة التحكم</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -115,10 +115,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-left">تسجيل الدخول لمسئول النظام </div>
+                    <div class="card-header text-left ">تسجيل الدخول لمسئول النظام </div>
                     <div class="card-body">
 
-                        <form action="{{ route('admin-login') }}" method="POST" style="direction: rtl;">
+                        <form action="{{ route('login') }}" method="POST" style="direction: rtl;">
                             @csrf
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">البريد
