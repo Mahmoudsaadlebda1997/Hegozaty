@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [SiteController::class, 'mainSite'])->name('mainSite');
+
+Route::get('/', [SiteController::class, 'index'])->name('mainSite');
 
 // Authenticated routes
 Route::middleware('web')->group(function () {
