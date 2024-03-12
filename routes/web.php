@@ -58,6 +58,8 @@ Route::middleware('web')->group(function () {
             Route::resource('users', UserController::class);
             Route::resource('rooms', RoomController::class);
             Route::resource('reservations', ReservationController::class);
+            Route::patch('/reservations/{id}/update-status', [ReservationController::class, 'updateStatus'])
+                ->name('reservations.update-status');
             Route::resource('rates', RateController::class);
             Route::get('/dashboard', [HomeController::class, 'home'])->name('homeDashboard');
         });
