@@ -47,6 +47,76 @@
                             <button class="btn btn-sm btn-primary rounded py-2 px-4 mediaButton"
                                     data-bs-toggle="modal" data-bs-target="#mediaModal_{{ $room->id }}">عرض الصور والفيديوهات
                             </button>
+                            <!-- Add this button where you want to trigger the modal -->
+                                    @if($room->available_count > 1)
+                                        <a class="btn btn-sm btn-dark targetButton rounded py-2 px-4" href="#"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#bookingModal" data-room-id="{{ $room->id }}">احجز الان</a>
+                                @endif
+                     <!-- The modal structure -->
+                                    <div class="modal fade" id="bookingModal" tabindex="-1"
+                                         aria-labelledby="bookingModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="bookingModalLabel">احجز الغرفة</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <!-- Your booking form goes here -->
+                                                    <form id="bookingForm">
+                                                        @csrf
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="check_in" class="form-label ">تاريخ الوصول</label>
+                                                                    <input type="date" class="form-control" id="check_in" name="check_in" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="check_out" class="form-label">تاريخ المغادرة</label>
+                                                                    <input type="date" class="form-control" id="check_out" name="check_out" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3 d-flex justify-content-between">
+                                                            <label for="" class="form-label">EGP{{$room->price}} - السعر في اليوم</label>
+                                                            <label for="modalTitle" id="modalTitle" class="form-label">EGP 0 - السعر الكلي</label>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="cardholder_name" class="form-label">اسم صاحب الكارت</label>
+                                                            <input type="text" class="form-control" id="cardholder_name" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="card_number" class="form-label">رقم الكارت</label>
+                                                            <input type="text" class="form-control" id="card_number" required>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="expiryMonth" class="form-label">تاريخ انتهاء الصلاحية - الشهر</label>
+                                                                    <input type="text" class="form-control" id="expiryMonth" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="expiryYear" class="form-label">تاريخ انتهاء الصلاحية - السنة</label>
+                                                                    <input type="text" class="form-control" id="expiryYear">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <input type="hidden" name="payment_status" value="visa">
+                                                        <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                                        <input type="hidden" name="room_id" id="selectedRoomId" value="">
+                                                        <button type="submit" class="btn btn-primary">حجز الغرفة</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                             <!-- The modal structure for room media -->
                             <div class="modal fade" id="mediaModal_{{ $room->id }}" tabindex="-1"
@@ -91,9 +161,56 @@
         </div>
     </div>
     <!-- Room Details End -->
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
+        // JavaScript to capture the selected room ID
+        $('.targetButton').on('click', function () {
+            var roomId = $(this).data('room-id');
+            console.log(roomId);
+            $('#selectedRoomId').val(roomId);
+        });
+
+        // JavaScript to handle form submission
+        $('#bookingForm').submit(function (event) {
+            event.preventDefault();
+
+            // Ajax request to handle form submission
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('booking.store') }}', // Replace with your actual route
+                data: $(this).serialize(),
+                success: function (response) {
+                    // Handle success (e.g., show a success message, close the modal, etc.)
+                    $('#bookingModal').modal('hide');
+                },
+                error: function (error) {
+                    // Handle error (e.g., show an error message)
+                    console.log(error);
+                }
+            });
+        });
+        // Function to calculate the total price and update the modal title
+        function updateTotalPrice() {
+            var checkInDate = new Date(document.getElementById('check_in').value);
+            var checkOutDate = new Date(document.getElementById('check_out').value);
+
+            // Calculate the difference in days
+            var timeDifference = checkOutDate.getTime() - checkInDate.getTime();
+            var daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+
+            // Get the room price
+            var roomPrice = {{$room->price}};
+            console.log(roomPrice,checkInDate,checkOutDate,daysDifference);
+
+            // Calculate the total price
+            var totalPrice = daysDifference * roomPrice;
+
+            // Update the modal title
+            document.getElementById('modalTitle').innerText = `EGP${totalPrice} - السعر الكلي`;
+        }
+
+        // Attach the function to the change event of the check-out input
+        document.getElementById('check_out').addEventListener('change', updateTotalPrice);
         // JavaScript to handle media modal
         function openMediaModal(roomId) {
             $('#mediaModal_' + roomId).modal('show');
