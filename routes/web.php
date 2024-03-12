@@ -40,9 +40,17 @@ Route::middleware('web')->group(function () {
     // تسجيل الخروج
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+//    غرف الفنادق
+    Route::get('/hotel/{hotel}', [SiteController::class, 'showDetails'])->name('hotel.details');
+        // عرض الغرف
+        Route::get('/rooms/{id}/details', [SiteController::class, 'showRoomDetails'])->name('room.details');
     // Dashboard route (protected by auth middleware)
     Route::middleware(['auth'])->group(function () {
         //        Site Routes
+        Route::post('/booking', [SiteController::class, 'storeBooking'])->name('booking.store');
+        Route::get('/reservations', [SiteController::class, 'myReservations'])->name('myReservations');
+        Route::delete('/reservations/{id}', [SiteController::class, 'destroyReservation'])->name('destroyReservation');
+        Route::post('/save-rating', [RateController::class, 'saveRating'])->name('save.rating');
 
         // Admin routes
         Route::prefix('admin')->group(function () {

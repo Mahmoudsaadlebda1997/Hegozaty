@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hotel;
+use App\Models\Rate;
+use App\Models\Reservation;
+use App\Models\Room;
 use App\Models\User;
 use App\Rules\SiteTypeEmail;
 use Illuminate\Http\Request;
@@ -11,7 +15,9 @@ class SiteController extends Controller
 {
     public function index()
     {
-        return view('site.home');
+        $hotels = Hotel::all();
+
+        return view('site.home',compact('hotels'));
     }
 
     // عرض صفحة تسجيل الدخول للمريض
@@ -71,7 +77,60 @@ class SiteController extends Controller
         ]);
         return redirect()->route('mainSite')->with('success', 'تم التسجيل بنجاح.');
     }
+    public function showDetails(Hotel $hotel)
+    {
+        $rates = Rate::where('hotel_id',$hotel->id)->get();
+        return view('site.rooms', compact('hotel','rates'));
+    }
 
+    public function storeBooking(Request $request)
+    {
+        // Validate the form data
+        $request->validate([
+            'check_in' => 'required|date',
+            'check_out' => 'required|date|after:check_in',
+            'payment_status' => 'required|in:visa', // Adjust as needed
+            'user_id' => 'required|exists:users,id',
+            'room_id' => 'required|exists:rooms,id', // Adjust as needed
+        ]);
 
+        // Create a new booking
+        $reservation = new Reservation([
+            'check_in' => $request->input('check_in'),
+            'check_out' => $request->input('check_out'),
+            'payment_status' => $request->input('payment_status'),
+            'user_id' => $request->input('user_id'),
+            'room_id' => $request->input('room_id'),
+        ]);
+
+        // Save the booking to the database
+        $reservation->save();
+
+        // You can also return a response if needed
+        return response()->json(['message' => 'تم الحجز بنجاح'], 200);
+    }
+    public function showRoomDetails($id)
+    {
+        $room = Room::findOrFail($id);
+
+        return view('site.details', compact('room'));
+    }
+    public function myReservations()
+    {
+        $reservations = auth()->user()->reservations;
+        return view('site.reservations', compact('reservations'));
+    }
+
+    public function destroyReservation($id)
+    {
+        $reservation = Reservation::find($id);
+
+        // Check if the reservation belongs to the authenticated user
+        if (auth()->user()->id === $reservation->user_id) {
+            $reservation->delete();
+        }
+
+        return redirect()->route('myReservations');
+    }
 
 }

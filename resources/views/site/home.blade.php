@@ -46,7 +46,8 @@
                             <a href="#" class="nav-item nav-link active">الرئيسية</a>
                             <a href="#about" class="nav-item nav-link">من نحن</a>
                             <a href="#hotels" class="nav-item nav-link">الفنادق</a>
-                            @auth
+                        @auth
+                            <a href="{{ route('myReservations') }}" class="nav-item nav-link">حجوزاتي</a>
                                 <a href="{{ route('logoutUser') }}" class="nav-item nav-link">تسجيل الخروج</a>
                             @endauth
                             @guest
@@ -82,10 +83,10 @@
                     <img class="w-100" src="{{ asset('site/img/carousel-2.jpg') }}" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 700px;">
-                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">المعيشة
-                                الفاخرة</h6>
-                            <h1 class="display-3 text-white mb-4 animated slideInDown">اكتشف فندقًا فاخرًا ذو علامة
-                                تجارية</h1>
+                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">الحياه
+                                المرفهه</h6>
+                            <h1 class="display-3 text-white mb-4 animated slideInDown">اكتشف فندقًا مرفه ذو علامة
+                                مشهوره</h1>
                             <a href="#hotels"
                                class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft text-bold">فنادقنا</a>
                         </div>
@@ -179,108 +180,109 @@
                 <h1 class="mb-5">اكتشف <span class="text-primary text-uppercase">الفنادق</span></h1>
             </div>
             <div class="row g-4">
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('site/img/room-1.jpg') }}" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Junior Suite</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
+                @foreach($hotels as $hotel)
+                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="room-item shadow rounded overflow-hidden">
+                            <div class="position-relative">
+                                <img class="img-fluid" src="{{ asset('storage/' . $hotel->image) }}" alt="{{ $hotel->name }}">
                             </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem
-                                sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">التفاصيل</a>
+                            <div class="p-4 mt-2">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">{{ $hotel->name }}</h5>
+                                    <div class="ps-2">
+                                        @for ($i = 1; $i <= 5; $i++)
+                                            @if ($i <= $hotel->rating)
+                                                <small class="fa fa-star text-primary"></small>
+                                            @else
+                                                <small class="far fa-star text-primary"></small>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                </div>
+                                <p class="text-body mb-3">{{ $hotel->description }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('hotel.details', ['hotel' => $hotel->id]) }}">التفاصيل</a>
+                                    <button class="btn btn-sm btn-primary rounded py-2 px-4" data-bs-toggle="modal" data-bs-target="#ratingModal" data-hotel-id="{{ $hotel->id }}">قيم الفندق</button>
+                                </div>
+
                             </div>
                         </div>
                     </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Rating and Comment -->
+    <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ratingModalLabel">التقييم و التعليق</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('site/img/room-1.jpg') }}" alt="">
+                <div class="modal-body">
+                    <form id="ratingForm">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="rating">التقييم</label>
+                            <select class="form-select" id="rating" name="rating">
+                                <option value="1">1 Star</option>
+                                <option value="2">2 Stars</option>
+                                <option value="3">3 Stars</option>
+                                <option value="4">4 Stars</option>
+                                <option value="5">5 Stars</option>
+                            </select>
                         </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Junior Suite</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem
-                                sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">التفاصيل</a>
-                            </div>
+                        <div class="mb-3">
+                            <label for="comment">التعليق</label>
+                            <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('site/img/room-1.jpg') }}" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Junior Suite</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem
-                                sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">التفاصيل</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.9s">
-                    <div class="room-item shadow rounded overflow-hidden">
-                        <div class="position-relative">
-                            <img class="img-fluid" src="{{ asset('site/img/room-1.jpg') }}" alt="">
-                        </div>
-                        <div class="p-4 mt-2">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5 class="mb-0">Junior Suite</h5>
-                                <div class="ps-2">
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                    <small class="fa fa-star text-primary"></small>
-                                </div>
-                            </div>
-                            <p class="text-body mb-3">Erat ipsum justo amet duo et elitr dolor, est duo duo eos lorem
-                                sed diam stet diam sed stet lorem.</p>
-                            <div class="d-flex justify-content-between">
-                                <a class="btn btn-sm btn-primary rounded py-2 px-4" href="">التفاصيل</a>
-                            </div>
-                        </div>
-                    </div>
+                        <input type="hidden" id="hotelId" name="hotelId">
+                        <input type="hidden" id="userId" name="userId" value="{{ auth()->id() }}">
+                        <button type="button" class="btn btn-primary" id="saveRating">احفظ</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- Hotels End -->
 
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Handle the click event of the Rate button
+            $('.btn-primary[data-bs-target="#ratingModal"]').on('click', function () {
+                var hotelId = $(this).data('hotel-id');
+                $('#hotelId').val(hotelId);
+            });
 
+            // Handle the click event of the Save button inside the modal
+            $('#saveRating').on('click', function () {
+                // Include CSRF token in the headers
+                var headers = {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                };
+
+                var formData = $('#ratingForm').serialize();
+
+                $.ajax({
+                    url: '{{ route("save.rating") }}', // Replace with your route for saving ratings
+                    type: 'POST',
+                    data: formData,
+                    headers: headers, // Include CSRF token in the headers
+                    success: function (response) {
+                        // Handle success (e.g., close modal, show a message)
+                        $('#ratingModal').modal('hide');
+                        location.reload(); // Corrected line
+                    },
+                    error: function (error) {
+                        // Handle error (e.g., show an error message)
+                        alert('هناك مشكله في التقييم.');
+                    }
+                });
+            });
+        });
+    </script>
 
 @endsection
 
