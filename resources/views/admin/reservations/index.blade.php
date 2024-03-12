@@ -45,9 +45,9 @@
                                 <tr>
                                     <td>{{ $reservation->id }}</td>
                                     <td>{{ $reservation->room->name }}</td>
-                                    <td>{{ $reservation->created_at }}</td>
-                                    <td>{{ $reservation->check_in }}</td>
-                                    <td>{{ $reservation->check_out }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($reservation->created_at)->format('Y-m-d h:i a') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($reservation->check_in)->format('Y-m-d h:i a') }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($reservation->check_out)->format('Y-m-d h:i a') }}</td>
                                     <td>
                                         @if($reservation->status === 'pending')
                                             <span class="badge badge-warning">قيد الانتظار</span>
@@ -64,6 +64,7 @@
                                             @csrf
                                             @method('PATCH')
                                             <select name="status" onchange="this.form.submit()" class="form-control">
+                                                <option value="accepted" {{ $reservation->status === 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
                                                 <option value="accepted" {{ $reservation->status === 'accepted' ? 'selected' : '' }}>تم القبول</option>
                                                 <option value="cancelled" {{ $reservation->status === 'cancelled' ? 'selected' : '' }}>تم الإلغاء</option>
                                                 <!-- Add more status options as needed -->

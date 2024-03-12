@@ -10,8 +10,8 @@
                 <h1 class="display-3 text-white mb-3 animated slideInDown">الغرف</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
-                        <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
                         <li class="breadcrumb-item text-white active" aria-current="page">الغرف</li>
+                        <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
                     </ol>
                 </nav>
             </div>
@@ -33,19 +33,22 @@
                                 <h5 class="mb-0">{{ $room->name }}</h5>
                             </div>
                             <div class="d-flex justify-content-center mb-3">
-                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>{{ $room->capacity }} سرير - </small>
+                                <small class="border-end me-3 pe-3"><i class="fa fa-bed text-primary me-2"></i>{{ $room->capacity }} سرير  </small>
                                 <small class="border-end me-3 pe-3"><i class="fa fa-bath text-primary me-2"></i>1 حمام</small>
-                                <small><i class="fa fa-wifi text-primary me-2"></i>Available</small>
+                                <small><i class="fa fa-wifi text-primary me-2"></i>متاح</small>
                             </div>
-                            <p class="text-body mb-3">  الوصف - {{ $room->description }}  </p>
-                            <p class="text-body mb-3">EGP  السعر -  {{ $room->price }} </p>
-                            <p class="text-body mb-3"> الغرف المتاحه - {{ $room->available_count }}</p>
-                            <p class="text-body mb-3"> المساحه - {{ $room->area }} </p>
-                            <p class="text-body mb-3"> الفندق - {{ $room->hotel->name }}    </p>
+                            <p class="text-body mb-3"> {{ $room->description }}  </p>
+                            <p class="text-body mb-3"> سعر الليلة : {{ $room->price }} جنيه </p>
+
+                            <p class="text-body mb-3">  مساحة الغرفة : {{ $room->area }} م </p>
+                            <p class="text-body mb-3">  سعة الافراد : {{ $room->capacity }} </p>
 
                             <!-- Button to open the media modal -->
                             <button class="btn btn-sm btn-primary rounded py-2 px-4 mediaButton"
-                                    data-bs-toggle="modal" data-bs-target="#mediaModal_{{ $room->id }}">عرض الصور والفيديوهات
+                                    data-bs-toggle="modal" data-bs-target="#mediaModal_{{ $room->id }}"> تصفح الغرفة
+                            </button>
+                            <button class="btn btn-sm btn-success rounded py-2 px-4 mediaButton"
+                                    id="bookingModalLabel">احجز الان
                             </button>
 
                             <!-- The modal structure for room media -->
@@ -54,7 +57,9 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="mediaModalLabel_{{ $room->id }}">صور وفيديوهات الغرفة</h5>
+                                            <h5 class="modal-title" id="mediaModalLabel_{{ $room->id }}">
+                                                تفاصيل الغرفة
+                                            </h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                     aria-label="Close"></button>
                                         </div>

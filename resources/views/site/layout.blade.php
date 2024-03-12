@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -33,6 +33,11 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('site/css/style.css') }}" rel="stylesheet">
+    <style>
+        .breadcrumb{
+            background: none; !important;
+        }
+    </style>
 </head>
 <body>
 
@@ -44,6 +49,65 @@
         </div>
     </div>
     <!-- Spinner End -->
+
+
+    <!-- Header Start -->
+    <div class="container-fluid bg-dark px-0" dir="rtl">
+        <div class="row gx-0">
+            <div class="col-lg-3 bg-dark d-none d-lg-block">
+                <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                    <h4 class="m-0 text-primary text-uppercase">Mansoura Booking</h4>
+                </a>
+            </div>
+            <div class="col-lg-9">
+                <div class="row gx-0 bg-white d-none d-lg-flex">
+                    <div class="col-lg-8 px-5 text-start">
+                        <div class="h-100 d-inline-flex align-items-center py-2 me-4 pl-5">
+                            <p class="mb-0"> info@mansoura_booking.com</p>
+                            <i class="fa fa-envelope text-primary me-2"></i>
+                        </div>
+                        <div class="h-100 d-inline-flex align-items-center py-2 pl-5">
+                            <p class="mb-0"> 010 010 0100</p>
+                            <i class="fa fa-phone-alt text-primary me-2"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 px-5 text-end">
+                        <div class="d-inline-flex align-items-center py-2">
+                            <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="me-3" href=""><i class="fab fa-youtube"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0" style="margin-left: 12%">
+                    <a href="/" class="navbar-brand d-block d-lg-none">
+                        <h1 class="m-0 text-primary text-uppercase">Mansoura Booking</h1>
+                    </a>
+                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
+                            data-bs-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav mr-auto py-0">
+                            <a href="/#" class="nav-item nav-link active">الرئيسية</a>
+                            <a href="/#about" class="nav-item nav-link">من نحن</a>
+                            <a href="/#hotels" class="nav-item nav-link">الفنادق</a>
+                            @auth
+                                <a href="{{ route('myReservations') }}" class="nav-item nav-link">حجوزاتي</a>
+                                <a href="{{ route('logoutUser') }}" class="nav-item nav-link">تسجيل الخروج</a>
+                            @endauth
+                            @guest
+                                <a href="{{ route('loginUser') }}" class="nav-item nav-link">تسجيل الدخول</a>
+                                <a href="{{ route('register') }}" class="nav-item nav-link">تسجيل عضوية</a>
+                            @endguest
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- Header End -->
 
 @yield('content')
 
@@ -57,15 +121,15 @@
                 <div class="bg-primary rounded p-4">
                     <a href="/"><h1 class="text-white text-uppercase mb-3">Mansoura Booking</h1></a>
                     <p class="text-white mb-0">
-                        منصة منصورة بوكينج .. اول منصة عربية لحجز الفنادق في المنصورة - جامعة الدلتا
+                        منصة منصورة بوكينج .. اول منصة عربية لحجز الفنادق في المنصورة - معهد الدلتا العالي لنظم المعلومات الإدارية والمحاسبية بالمنصورة
                     </p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-3">
-                <h6 class="section-title text-start text-primary text-uppercase mb-4">Contact</h6>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>123 Street, New York, USA</p>
+                <h6 class="section-title text-start text-primary text-uppercase mb-4">التواصل</h6>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>معهد الدلتا - المنصورة</p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@example.com</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@mansoura_booking.com</p>
                 <div class="d-flex pt-2">
                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -76,20 +140,10 @@
             <div class="col-lg-5 col-md-12">
                 <div class="row gy-5 g-4">
                     <div class="col-md-6">
-                        <h6 class="section-title text-start text-primary text-uppercase mb-4">Company</h6>
-                        <a class="btn btn-link" href="">غن الموقع</a>
-                        <a class="btn btn-link" href="">اتصل بنا</a>
-                        <a class="btn btn-link" href="">قوانين الحمايه</a>
-                        <a class="btn btn-link" href="">الشروط والاحكام</a>
-                        <a class="btn btn-link" href="">الدعم</a>
-                    </div>
-                    <div class="col-md-6">
-                        <h6 class="section-title text-start text-primary text-uppercase mb-4">Services</h6>
-                        <a class="btn btn-link" href="">Food & Restaurant</a>
-                        <a class="btn btn-link" href="">Spa & Fitness</a>
-                        <a class="btn btn-link" href="">Sports & Gaming</a>
-                        <a class="btn btn-link" href="">Event & Party</a>
-                        <a class="btn btn-link" href="">GYM & Yoga</a>
+                        <h6 class="section-title text-start text-primary text-uppercase mb-4">روابط</h6>
+                        <a class="btn btn-link" href="/#about">عن الموقع</a>
+                        <a class="btn btn-link" href="/#">الرئيسية</a>
+                        <a class="btn btn-link" href="/#hotels">الفنادق</a>
                     </div>
                 </div>
             </div>
@@ -98,19 +152,11 @@
     <div class="container">
         <div class="copyright">
             <div class="row">
-                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                    &copy; <a class="border-bottom" href="#">Mansoura Booking</a>, All Right Reserved.
-
-                    <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                    Designed By <a class="border-bottom" href="https://htmlcodex.com">معهد الدلتا</a>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <div class="footer-menu">
-                        <a href="">الرئيسيه</a>
-                        <a href="">المساعده</a>
-                        <a href="">القوانين و</a>
-                        <a href="">الارشادات</a>
-                    </div>
+                <div class="col-md-12 text-center text-md-start mb-3">
+                    &copy; <a class="border-bottom" href="#">
+                        معهد الدلتا العالي لنظم المعلومات الإدارية
+                        والمحاسبية بالمنصورة </a>، كل الحقوق محفوظة.
+                    {{ date('Y') }}
                 </div>
             </div>
         </div>
@@ -137,6 +183,10 @@
 
 <!-- Template Javascript -->
 <script src="{{ asset('site/js/main.js') }}"></script>
+
+
+@yield('custom-script')
+
 </body>
 
 </html>

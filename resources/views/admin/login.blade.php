@@ -118,7 +118,7 @@
                     <div class="card-header text-left ">تسجيل الدخول لمسئول النظام </div>
                     <div class="card-body">
 
-                        <form action="{{ route('login') }}" method="POST" style="direction: rtl;">
+                        <form action="{{ route('admin.login') }}" method="POST" style="direction: rtl;">
                             @csrf
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">البريد

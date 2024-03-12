@@ -1,67 +1,5 @@
 @extends('site.layout')
 @section('content')
-
-
-
-    <!-- Header Start -->
-    <div class="container-fluid bg-dark px-0">
-        <div class="row gx-0">
-            <div class="col-lg-3 bg-dark d-none d-lg-block">
-                <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h4 class="m-0 text-primary text-uppercase">Mansoura Booking</h4>
-                </a>
-            </div>
-            <div class="col-lg-9">
-                <div class="row gx-0 bg-white d-none d-lg-flex">
-                    <div class="col-lg-7 px-5 text-start">
-                        <div class="h-100 d-inline-flex align-items-center py-2 me-4">
-                            <i class="fa fa-envelope text-primary me-2"></i>
-                            <p class="mb-0">info@example.com</p>
-                        </div>
-                        <div class="h-100 d-inline-flex align-items-center py-2">
-                            <i class="fa fa-phone-alt text-primary me-2"></i>
-                            <p class="mb-0">+012 345 6789</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-5 px-5 text-end">
-                        <div class="d-inline-flex align-items-center py-2">
-                            <a class="me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="me-3" href=""><i class="fab fa-twitter"></i></a>
-                            <a class="me-3" href=""><i class="fab fa-linkedin-in"></i></a>
-                            <a class="me-3" href=""><i class="fab fa-instagram"></i></a>
-                            <a class="" href=""><i class="fab fa-youtube"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0" style="margin-left: 40%">
-                    <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 text-primary text-uppercase">Mansoura Booking</h1>
-                    </a>
-                    <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
-                            data-bs-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
-                            <a href="#" class="nav-item nav-link active">الرئيسية</a>
-                            <a href="#about" class="nav-item nav-link">من نحن</a>
-                            <a href="#hotels" class="nav-item nav-link">الفنادق</a>
-                        @auth
-                            <a href="{{ route('myReservations') }}" class="nav-item nav-link">حجوزاتي</a>
-                                <a href="{{ route('logoutUser') }}" class="nav-item nav-link">تسجيل الخروج</a>
-                            @endauth
-                            @guest
-                                <a href="{{ route('loginUser') }}" class="nav-item nav-link">تسجيل الدخول</a>
-                            @endguest
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-    <!-- Header End -->
-
-
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -74,8 +12,6 @@
                                 الفاخرة</h6>
                             <h1 class="display-3 text-white mb-4 animated slideInDown">اكتشف فندقًا فاخرًا ذو علامة
                                 تجارية</h1>
-                            <a href="#hotels"
-                               class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft text-bold">فنادقنا</a>
                         </div>
                     </div>
                 </div>
@@ -83,12 +19,10 @@
                     <img class="w-100" src="{{ asset('site/img/carousel-2.jpg') }}" alt="Image">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 700px;">
-                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">الحياه
-                                المرفهه</h6>
+                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">الحياة
+                                المرفهة</h6>
                             <h1 class="display-3 text-white mb-4 animated slideInDown">اكتشف فندقًا مرفه ذو علامة
-                                مشهوره</h1>
-                            <a href="#hotels"
-                               class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft text-bold">فنادقنا</a>
+                                مشهورة</h1>
                         </div>
                     </div>
                 </div>
@@ -173,7 +107,7 @@
 
 
     <!-- Hotels Start -->
-    <div class="container-xxl py-5" id="hotels">
+    <div class="container-xxl py-5" id="hotels" dir="rtl">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title text-center text-primary text-uppercase">فنادقنا</h6>
@@ -181,7 +115,7 @@
             </div>
             <div class="row g-4">
                 @foreach($hotels as $hotel)
-                    <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ 0.1 + $loop->index * 0.1}}s">
                         <div class="room-item shadow rounded overflow-hidden">
                             <div class="position-relative">
                                 <img class="img-fluid" src="{{ asset('storage/' . $hotel->image) }}" alt="{{ $hotel->name }}">
@@ -202,7 +136,9 @@
                                 <p class="text-body mb-3">{{ $hotel->description }}</p>
                                 <div class="d-flex justify-content-between">
                                     <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('hotel.details', ['hotel' => $hotel->id]) }}">التفاصيل</a>
-                                    <button class="btn btn-sm btn-primary rounded py-2 px-4" data-bs-toggle="modal" data-bs-target="#ratingModal" data-hotel-id="{{ $hotel->id }}">قيم الفندق</button>
+                                    @auth
+                                        <button class="btn btn-sm btn-success rounded py-2 px-4" data-bs-toggle="modal" data-bs-target="#ratingModal" data-hotel-id="{{ $hotel->id }}">قيم الفندق</button>
+                                    @endauth
                                 </div>
 
                             </div>

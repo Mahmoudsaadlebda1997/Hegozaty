@@ -1,6 +1,9 @@
 @extends('site.layout')
 
 @section('content') <!-- Page Header Start -->
+
+@include('admin.layouts.message')
+
 <div class="container-fluid page-header mb-5 p-0"
      style="background-image: url({{ asset('site/img/carousel-1.jpg') }});">
     <div class="container-fluid page-header-inner py-5">
@@ -8,28 +11,28 @@
             <h1 class="display-3 text-white mb-3 animated slideInDown">حجوازتي</h1>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center text-uppercase">
-                    <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
                     <li class="breadcrumb-item text-white active" aria-current="page">حجوازتي</li>
+                    <li class="breadcrumb-item"><a href="/">الرئيسية</a></li>
                 </ol>
             </nav>
         </div>
     </div>
 </div>
 <!-- Page Header End -->
-
-    <div class="container">
-        <h1 class="mt-5 mb-4 text-right">حجوزاتي</h1>
-
+    <div class="container mb-5" dir="rtl">
+        <div class="row session-title mt-3 mb-4">
+            <h2 class="text-center">حجوزاتي</h2>
+        </div>
         @if(count($reservations) > 0)
-            <table class="table">
+            <table class="table table-striped table-bordered text-center">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">اسم الغرفه</th>
-                    <th scope="col">موعد بدايه الحجز</th>
-                    <th scope="col">موعد نهايه الحجز</th>
-                    <th scope="col">الحاله</th>
-                    <th scope="col">الاجرائات</th>
+                    <th scope="col">الغرفة</th>
+                    <th scope="col">بداية الحجز</th>
+                    <th scope="col">نهاية الحجز</th>
+                    <th scope="col">الحالة</th>
+                    <th scope="col">الاجراءات</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,7 +55,7 @@
                             <form action="{{ route('destroyReservation', $reservation->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">الغاء</button>
                             </form>
                         </td>
                     </tr>

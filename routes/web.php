@@ -28,17 +28,20 @@ Route::get('/', [SiteController::class, 'index'])->name('mainSite');
 Route::middleware('web')->group(function () {
 
     // تسجيل الدخول
-    Route::get('loginUser', [SiteController::class, 'showUserLoginForm'])->name('loginUser');
-    Route::post('/loginUser', [SiteController::class, 'loginUser']);
-    Route::get('/logoutUser', [SiteController::class, 'logoutUser'])->name('logoutUser');
+    Route::get('login', [SiteController::class, 'showUserLoginForm'])->name('loginUser');
+    Route::post('login', [SiteController::class, 'loginUser']);
+
+    Route::get('logout', [SiteController::class, 'logoutUser'])->name('logoutUser');
+
     Route::get('/register', [SiteController::class, 'showRegistrationForm'])->name('register');
     Route::post('/register', [SiteController::class, 'storeUser']);
 
-    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    // تسجيل الدخول لمسئول النظام
+    Route::get('admin/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('admin/login', [AuthController::class, 'login'])->name('admin.login');
 
     // تسجيل الخروج
-    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logoutUser');
 
 //    غرف الفنادق
     Route::get('/hotel/{hotel}', [SiteController::class, 'showDetails'])->name('hotel.details');

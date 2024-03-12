@@ -54,7 +54,7 @@
                             <a href="{{ route('hotels.create') }}"
                                class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>اضف فتدق</p>
+                                <p>اضف فندق</p>
                             </a>
                         </li>
                     </ul>
@@ -153,7 +153,7 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a class="ml-3 nav-link" href="{{ route('logout') }}">
+                    <a class="ml-3 nav-link" href="{{ route('logoutUser') }}">
                         <i class="fas fa-sign-out-alt"></i>
                         تسجيل الخروج
                     </a>

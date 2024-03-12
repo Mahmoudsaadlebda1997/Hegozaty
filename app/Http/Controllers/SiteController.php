@@ -20,7 +20,7 @@ class SiteController extends Controller
         return view('site.home',compact('hotels'));
     }
 
-    // عرض صفحة تسجيل الدخول للمريض
+    // عرض صفحة تسجيل الدخول المستخدم
     public function showUserLoginForm()
     {
         return view('site.login');
@@ -52,7 +52,7 @@ class SiteController extends Controller
         Auth::logout();
         return redirect('/loginUser');
     }
-    // عرض صفحة تسجيل الدخول للمريض
+    // عرض صفحة تسجيل الدخول للمستخدم
     public function showRegistrationForm()
     {
         return view('site.register');
@@ -130,7 +130,7 @@ class SiteController extends Controller
             $reservation->delete();
         }
 
-        return redirect()->route('myReservations');
+        return redirect()->route('myReservations')->with('success', 'تم الغاء الحجز');
     }
 
 }
