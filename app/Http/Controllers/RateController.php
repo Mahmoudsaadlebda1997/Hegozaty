@@ -8,6 +8,34 @@ use Illuminate\Http\Request;
 
 class RateController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
+    public function index()
+    {
+        // Get all rates
+        $rates = Rate::all();
+        $active = 'rates';
+        // Return the view with rates data
+        return view('admin.rates.index', compact('rates','active'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Rate  $rate
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy(Rate $rate)
+    {
+        // Delete the rate
+        $rate->delete();
+
+        // Redirect back with a success message
+        return redirect()->route('rates.index')->with('success', 'تم مسح التقييم.');
+    }
     public function saveRating(Request $request)
     {
         // Validate the request
