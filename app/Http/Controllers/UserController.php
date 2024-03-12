@@ -78,36 +78,4 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully');
     }
-
-    public function showUserLoginForm()
-    {
-        return view('login');
-    }
-
-    // Login function
-    public function loginUser(Request $request)
-    {
-        // Validate the request data
-        $request->validate([
-            'email' => ['required', 'email', new UserTypeEmail],
-            'password' => 'required',
-        ]);
-
-        // Attempt to log in the user
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            // Authentication passed
-            return redirect()->intended('/admin/dashboard');
-        }
-
-        // Authentication failed
-        return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
-    }
-
-    // Log the user out
-    public function logoutUser()
-    {
-        Auth::logout();
-        return redirect('/login');
-    }
 }

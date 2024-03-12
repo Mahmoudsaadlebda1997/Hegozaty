@@ -26,8 +26,14 @@ Route::get('/', [SiteController::class, 'index'])->name('mainSite');
 
 // Authenticated routes
 Route::middleware('web')->group(function () {
-//Route::resource('rates', RateController::class);
+
     // تسجيل الدخول
+    Route::get('loginUser', [SiteController::class, 'showUserLoginForm'])->name('loginUser');
+    Route::post('/loginUser', [SiteController::class, 'loginUser']);
+    Route::get('/logoutUser', [SiteController::class, 'logoutUser'])->name('logoutUser');
+    Route::get('/register', [SiteController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [SiteController::class, 'storeUser']);
+
     Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 
@@ -36,6 +42,8 @@ Route::middleware('web')->group(function () {
 
     // Dashboard route (protected by auth middleware)
     Route::middleware(['auth'])->group(function () {
+        //        Site Routes
+
         // Admin routes
         Route::prefix('admin')->group(function () {
             Route::resource('hotels', HotelController::class);

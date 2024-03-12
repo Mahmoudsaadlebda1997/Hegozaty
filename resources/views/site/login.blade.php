@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>حجز الفنادق - تسجيل دخول المسئول</title>
+    <title>Mansoura Booking - تسجيل دخول المستخدم</title>
     <link rel="stylesheet" href="{{ asset('admin/dist/css/bootstrap.min.css') }}">
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
@@ -53,7 +53,7 @@
         }
 
         .card-header {
-            background-color: darkgreen;
+            background-color: dodgerblue;
             color: #fff;
             text-align: right;
         }
@@ -96,12 +96,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mr-5">
-                    <a class="nav-link" href="/">زيارة الموقع</a>
+                    <a class="nav-link" href="/admin/dashboard">زيارة لوحه التحكم</a>
                 </li>
             </ul>
 
 
-            <a class="navbar-brand" href="#">حجز الفنادق - لوحة التحكم</a>
+            <a class="navbar-brand" href="#">Mansoura Booking موقع</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -115,10 +115,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-left ">تسجيل الدخول لمسئول النظام </div>
+                    <div class="card-header text-left ">Mansoura Booking تسجيل الدخول لموقع   </div>
                     <div class="card-body">
 
-                        <form action="{{ route('login') }}" method="POST" style="direction: rtl;">
+                        <form action="{{ route('loginUser') }}" method="POST" style="direction: rtl;">
                             @csrf
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right">البريد
@@ -150,6 +150,8 @@
                                         <label>
                                             <input type="checkbox" name="remember"> تذكرني
                                         </label>
+                                        <a href="{{ route('register') }}" class="">إنشاء حساب جديد</a>
+
                                     </div>
                                 </div>
                             </div>
