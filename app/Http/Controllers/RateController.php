@@ -24,22 +24,22 @@ class RateController extends Controller
             'rate' => $request->rating,
             'comment' => $request->comment
         ]);
-    // Fetch all ratings for the hotel
-            $rates = Rate::where('hotel_id', $request->hotelId)->get();
+        // Fetch all ratings for the hotel
+        $rates = Rate::where('hotel_id', $request->hotelId)->get();
 
-    // Calculate the average rating
-            $averageRating = $rates->avg('rate');
+        // Calculate the average rating
+        $averageRating = $rates->avg('rate');
 
-    // Find the hotel by ID
-            $hotel = Hotel::findOrFail($request->hotelId);
+        // Find the hotel by ID
+        $hotel = Hotel::findOrFail($request->hotelId);
 
-    // Update the hotel's rating
-            $hotel->rating = $averageRating;
+        // Update the hotel's rating
+        $hotel->rating = $averageRating;
 
-    // Save the changes to the database
-            $hotel->save();
+        // Save the changes to the database
+        $hotel->save();
 
-    // Return the new rating
+        // Return the new rating
         return response()->json(['message' => 'تم التقييم بنجاح.']);
     }
 }
