@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Pagination\Paginator;
 use Carbon\Carbon;
 use App\Models\Reservation;
-use App\Models\Room;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        Paginator::useBootstrap(); // For Bootstrap 5
+
         // Register a callback to run when the application is booted
         $this->app->booted(function () {
             // Get reservations where check_out is today
