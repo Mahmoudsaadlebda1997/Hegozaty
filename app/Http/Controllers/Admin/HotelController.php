@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Hotel;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class HotelController extends Controller
@@ -13,7 +14,7 @@ class HotelController extends Controller
         $hotels = Hotel::all();
         $active = 'hotels';
 
-        return view('admin.hotels.index', compact('hotels','active'));
+        return view('admin.hotels.index', compact('hotels', 'active'));
     }
 
     public function show($id)
@@ -21,14 +22,14 @@ class HotelController extends Controller
         $hotel = Hotel::findOrFail($id);
         $active = 'hotels';
 
-        return view('admin.hotels.show', compact('hotel','active'));
+        return view('admin.hotels.show', compact('hotel', 'active'));
     }
 
     public function create()
     {
         $active = 'hotels';
 
-        return view('admin.hotels.create',compact('active'));
+        return view('admin.hotels.create', compact('active'));
     }
 
     public function store(Request $request)
@@ -62,7 +63,7 @@ class HotelController extends Controller
         $hotel = Hotel::findOrFail($id);
         $active = 'hotels';
 
-        return view('admin.hotels.edit', compact('hotel','active'));
+        return view('admin.hotels.edit', compact('hotel', 'active'));
     }
 
     public function update(Request $request, $id)
@@ -98,8 +99,9 @@ class HotelController extends Controller
     public function destroy($id)
     {
         $hotel = Hotel::findOrFail($id);
-        if($hotel->rooms->count() > 0){
-        $hotel->rooms->delete();
+        if ($hotel->rooms->count() > 0) {
+            $hotel->rooms()->delete();
+            $hotel->rooms()->resevervations()->delete();
         }
         $hotel->delete();
 

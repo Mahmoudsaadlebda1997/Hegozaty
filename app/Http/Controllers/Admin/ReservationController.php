@@ -45,6 +45,8 @@ class ReservationController extends Controller
     {
         $reservation->delete();
 
+        $reservation->room()->increment('available_count');
+
         return redirect()->route('reservations.index')->with('success', 'تم حذف الحجز بنجاح.');
     }
 }

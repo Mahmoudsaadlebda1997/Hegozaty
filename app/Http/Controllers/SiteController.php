@@ -17,7 +17,7 @@ class SiteController extends Controller
     {
         $hotels = Hotel::all();
 
-        return view('site.home',compact('hotels'));
+        return view('site.home', compact('hotels'));
     }
 
     // عرض صفحة تسجيل الدخول المستخدم
@@ -39,24 +39,26 @@ class SiteController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
             // Authentication passed
-            return redirect()->intended(route('mainSite'));
+            return redirect()->intended(route('mainSite'))->with('success', 'تم تسجيل الدخول بنجاح');
         }
 
         // Authentication failed
-        return back()->withErrors(['email' => 'Invalid credentials'])->withInput($request->only('email'));
+        return back()->withErrors(['email' => 'بيانات خاطئة'])->withInput($request->only('email'));
     }
 
     // Log the user out
     public function logoutUser()
     {
         Auth::logout();
-        return redirect('/loginUser');
+        return redirect('/loginUser')->with('success', 'تم تسجيل الخروج بنجاح');
     }
+
     // عرض صفحة تسجيل الدخول للمستخدم
     public function showRegistrationForm()
     {
         return view('site.register');
     }
+
     public function storeUser(Request $request)
     {
         // Validate the request data
@@ -75,12 +77,13 @@ class SiteController extends Controller
             'phone' => $request->input('phone'),
             'role' => $request->input('role'),
         ]);
-        return redirect()->route('mainSite')->with('success', 'تم التسجيل بنجاح.');
+        return redirect()->route('mainSite')->with('success', 'تم تسجيل العضوية بنجاح.');
     }
+
     public function showDetails(Hotel $hotel)
     {
-        $rates = Rate::where('hotel_id',$hotel->id)->get();
-        return view('site.rooms', compact('hotel','rates'));
+        $rates = Rate::where('hotel_id', $hotel->id)->get();
+        return view('site.rooms', compact('hotel', 'rates'));
     }
 
     public function storeBooking(Request $request)
@@ -107,14 +110,16 @@ class SiteController extends Controller
         $reservation->save();
 
         // You can also return a response if needed
-        return response()->json(['message' => 'تم الحجز بنجاح'], 200);
+        return response()->json(['success' => 'تم الحجز بنجاح'], 200);
     }
+
     public function showRoomDetails($id)
     {
         $room = Room::findOrFail($id);
 
         return view('site.details', compact('room'));
     }
+
     public function myReservations()
     {
         $reservations = auth()->user()->reservations;

@@ -34,32 +34,35 @@
                             <div class="position-relative">
                                 <img class="img-fluid" src="{{ asset(Storage::url($room->media[0]->image)) }}" alt="">
                                 <small
-                                    class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4" > EGP {{ $room->price }}
+                                    class="position-absolute start-0 top-100 translate-middle-y bg-primary text-white rounded py-1 px-3 ms-4">
+                                    EGP {{ $room->price }}
                                     / الليلة</small>
                             </div>
                             <div class="p-4 mt-3">
                                 <div class="d-flex justify-content-between mb-3">
-                                    <div class="ps-2">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= $hotel->rating)
-                                                <small class="fa fa-star text-primary"></small>
-                                            @else
-                                                <small class="far fa-star text-primary"></small>
-                                            @endif
-                                        @endfor
-                                    </div>
                                     <h5 class="mb-0">{{ $room->name }}</h5>
+
+                                    <h5 class="mb-0">{{ $room->area }} م </h5>
+
                                 </div>
                                 <div class="d-flex mb-3" style="margin-right: 20%">
-                                    <small><i class="fa fa-bed text-primary me-2"></i> {{ $room->capacity }} سرير </small>
+                                    <small><i class="fa fa-bed text-primary me-2"></i> {{ $room->capacity }} سرير
+                                    </small>
                                     <small class="border-end me-3"><i class="fa fa-bath text-primary me-2"></i> 1
                                         حمام</small>
-                                    <small class="border-end me-3"><i class="fa fa-wifi text-primary me-2"></i> متاح</small>
+                                    <small class="border-end me-3"><i class="fa fa-wifi text-primary me-2"></i>
+                                        متاح</small>
                                 </div>
                                 <p class="text-body mb-3 text-center">{{ $room->description }}</p>
                                 <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4"
-                                       href="{{ route('room.details', ['id' => $room->id]) }}">التفاصيل</a>
+{{--                                    <a class="btn btn-sm btn-success rounded py-2 px-4"--}}
+{{--                                       href="{{ route('room.details', ['id' => $room->id]) }}">التفاصيل</a>--}}
+
+                                    <button class="btn btn-sm btn-primary rounded py-2 px-4 mediaButton"
+                                            data-bs-toggle="modal" data-bs-target="#mediaModal_{{ $room->id }}"> تصفح
+                                        الغرفة
+                                    </button>
+
                                     <!-- Add this button where you want to trigger the modal -->
                                     @if($room->available_count > 1)
                                         <a class="btn btn-sm btn-dark targetButton rounded py-2 px-4" href="#"
@@ -152,9 +155,50 @@
                 @empty
                     <h3 class="text-center">لا يوجد غرف متاحة</h3>
                 @endforelse
+
+                <!-- The modal structure for room media -->
+                <div class="modal fade" id="mediaModal_{{ $room->id }}" tabindex="-1"
+                     aria-labelledby="mediaModalLabel_{{ $room->id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="mediaModalLabel_{{ $room->id }}">
+                                    تفاصيل الغرفة
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body max-height-50">
+                                <!-- Bootstrap Carousel for images -->
+                                <div id="mediaCarousel" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @foreach($room->media as $key => $media)
+                                            <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                                <img src="{{ asset(Storage::url($media->image)) }}"
+                                                     class="d-block w-100 h-100" alt="Room Image">
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <a class="carousel-control-prev" href="#mediaCarousel" role="button"
+                                       data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#mediaCarousel" role="button"
+                                       data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End of media modal -->
             </div>
         </div>
-    </div  >
+    </div>
     <!-- Room End -->
     <!-- Testimonial Start -->
     <div class="container-xxl testimonial mt-5 py-5 bg-dark wow zoomIn" data-wow-delay="0.1s"
@@ -232,5 +276,46 @@
 
         // Attach the function to the change event of the check-out input
         document.getElementById('check_out').addEventListener('change', updateTotalPrice);
+    </script>
+
+    <script>
+        // JavaScript to capture the selected room ID
+        $('.targetButton').on('click', function () {
+            var roomId = $(this).data('room-id');
+            console.log(roomId);
+            $('#selectedRoomId').val(roomId);
+        });
+
+        // JavaScript to handle form submission
+        $('#bookingForm').submit(function (event) {
+            event.preventDefault();
+
+            // Ajax request to handle form submission
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('booking.store') }}', // Replace with your actual route
+                data: $(this).serialize(),
+                success: function (response) {
+                    // Handle success (e.g., show a success message, close the modal, etc.)
+                    $('#bookingModal').modal('hide');
+                },
+                error: function (error) {
+                    // Handle error (e.g., show an error message)
+                    console.log(error);
+                }
+            });
+        });
+
+
+        // JavaScript to handle media modal
+        function openMediaModal(roomId) {
+            $('#mediaModal_' + roomId).modal('show');
+        }
+
+        // Attach the function to the click event of the room media button
+        $('.mediaButton').on('click', function () {
+            var roomId = $(this).data('room-id');
+            openMediaModal(roomId);
+        });
     </script>
 @endsection

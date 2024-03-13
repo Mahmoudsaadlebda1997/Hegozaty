@@ -38,7 +38,7 @@ class UserController extends Controller
         // Create a new user
         User::create($request->all());
 
-        return redirect()->route('users.index')->with('success', 'User created successfully');
+        return redirect()->route('loginUser')->with('success', 'تم تسجيل العضوية بنجاح');
     }
 
     // Display the specified user
