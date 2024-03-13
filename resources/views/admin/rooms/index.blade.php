@@ -60,6 +60,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="text-center justify-content-center m-3">
+                            {{ $rooms->links() }}
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>

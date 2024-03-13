@@ -12,7 +12,7 @@ class ReservationController extends Controller
     {
         $active = 'reservations';
         // Retrieve all reservations
-        $reservations = Reservation::all();
+        $reservations = Reservation::paginate(5);
         return view('admin.reservations.index', compact('reservations','active'));
     }
     public function updateStatus(Request $request, $id)

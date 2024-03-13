@@ -48,16 +48,22 @@
                                     <td>{{ $rate->rate }}</td>
                                     <td>{{ $rate->comment }}</td>
                                     <td>
-                                        <form action="{{ route('rates.destroy', $rate->id) }}" method="post" style="display: inline-block;">
+                                        <form action="{{ route('rates.destroy', $rate->id) }}" method="post"
+                                              style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('هل أنت متأكد؟')">حذف
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="text-center justify-content-center m-3">
+                            {{ $rates->links() }}
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>

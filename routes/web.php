@@ -46,7 +46,7 @@ Route::middleware('web')->group(function () {
 //    غرف الفنادق
     Route::get('/hotel/{hotel}', [SiteController::class, 'showDetails'])->name('hotel.details');
         // عرض الغرف
-        Route::get('/rooms/{id}/details', [SiteController::class, 'showRoomDetails'])->name('room.details');
+//        Route::get('/rooms/{id}/details', [SiteController::class, 'showRoomDetails'])->name('room.details');
     // Dashboard route (protected by auth middleware)
     Route::middleware(['auth'])->group(function () {
         //        Site Routes

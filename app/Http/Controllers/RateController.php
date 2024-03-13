@@ -16,7 +16,7 @@ class RateController extends Controller
     public function index()
     {
         // Get all rates
-        $rates = Rate::all();
+        $rates = Rate::paginate(5);
         $active = 'rates';
         // Return the view with rates data
         return view('admin.rates.index', compact('rates','active'));

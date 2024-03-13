@@ -122,7 +122,7 @@ class SiteController extends Controller
 
     public function myReservations()
     {
-        $reservations = auth()->user()->reservations;
+        $reservations = auth()->user()->reservations()->paginate(5);
         return view('site.reservations', compact('reservations'));
     }
 

@@ -62,6 +62,9 @@
                 @endforeach
                 </tbody>
             </table>
+            <div class="text-center justify-content-center m-3">
+                {{ $reservations->links() }}
+            </div>
         @else
             <p>ليس لديك حجوزات.</p>
         @endif

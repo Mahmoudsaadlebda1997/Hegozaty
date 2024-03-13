@@ -80,6 +80,9 @@
                             @endforeach
                             </tbody>
                         </table>
+                        <div class="text-center justify-content-center m-3">
+                            {{ $reservations->links() }}
+                        </div>
                     </div>
                     <!-- /.card-body -->
                 </div>

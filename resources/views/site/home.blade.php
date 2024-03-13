@@ -187,8 +187,8 @@
     <script>
         $(document).ready(function () {
             // Handle the click event of the Rate button
-            $('.btn-primary[data-bs-target="#ratingModal"]').on('click', function () {
-                var hotelId = $(this).data('hotel-id');
+            $('.btn-success[data-bs-target="#ratingModal"]').on('click', function () {
+                var hotelId = $(this).data('hotel-id'); // Update this line
                 $('#hotelId').val(hotelId);
             });
 
@@ -209,7 +209,7 @@
                     success: function (response) {
                         // Handle success (e.g., close modal, show a message)
                         $('#ratingModal').modal('hide');
-                        location.reload(); // Corrected line
+                        location.reload();
                     },
                     error: function (error) {
                         // Handle error (e.g., show an error message)
