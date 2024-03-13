@@ -47,9 +47,6 @@
                             <button class="btn btn-sm btn-primary rounded py-2 px-4 mediaButton"
                                     data-bs-toggle="modal" data-bs-target="#mediaModal_{{ $room->id }}"> تصفح الغرفة
                             </button>
-                            <button class="btn btn-sm btn-success rounded py-2 px-4 mediaButton"
-                                    id="bookingModalLabel">احجز الان
-                            </button>
                             <!-- Add this button where you want to trigger the modal -->
                                     @if($room->available_count > 1)
                                         <a class="btn btn-sm btn-dark targetButton rounded py-2 px-4" href="#"
