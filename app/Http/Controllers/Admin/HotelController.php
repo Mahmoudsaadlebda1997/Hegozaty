@@ -11,7 +11,7 @@ class HotelController extends Controller
 {
     public function index()
     {
-        $hotels = Hotel::all();
+        $hotels = Hotel::paginate(5);
         $active = 'hotels';
 
         return view('admin.hotels.index', compact('hotels', 'active'));
