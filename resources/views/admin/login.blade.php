@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>حجز الفنادق - تسجيل دخول المسئول</title>
+    <title>Point E-Commerce - تسجيل دخول المسئول</title>
     <link rel="stylesheet" href="{{ asset('admin/dist/css/bootstrap.min.css') }}">
     <style type="text/css">
         @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
@@ -101,7 +101,7 @@
             </ul>
 
 
-            <a class="navbar-brand" href="#">حجز الفنادق - لوحة التحكم</a>
+            <a class="navbar-brand" href="#">Point E-Commerce - لوحة التحكم</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

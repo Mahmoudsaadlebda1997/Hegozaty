@@ -57,7 +57,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header text-right ">Mansoura Booking تسجيل الدخول لموقع</div>
+                        <div class="card-header text-right ">Point E-Commerce تسجيل الدخول لموقع</div>
                         <div class="card-body">
 
                             <form action="{{ route('loginUser') }}" method="POST" style="direction: rtl;">

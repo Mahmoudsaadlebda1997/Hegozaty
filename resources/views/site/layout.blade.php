@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Mansoura Booking</title>
+    <title>Point E-Commerce</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -59,14 +59,14 @@
         <div class="row gx-0">
             <div class="col-lg-3 bg-dark d-none d-lg-block">
                 <a href="/" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
-                    <h4 class="m-0 text-primary text-uppercase">Mansoura Booking</h4>
+                    <h4 class="m-0 text-primary text-uppercase">Point E-Commerce</h4>
                 </a>
             </div>
             <div class="col-lg-9">
                 <div class="row gx-0 bg-white d-none d-lg-flex">
                     <div class="col-lg-8 px-5 text-start">
                         <div class="h-100 d-inline-flex align-items-center py-2 me-4 pl-5">
-                            <p class="mb-0"> info@mansoura_booking.com</p>
+                            <p class="mb-0"> info@point-ecommerce.com</p>
                             <i class="fa fa-envelope text-primary me-2"></i>
                         </div>
                         <div class="h-100 d-inline-flex align-items-center py-2 pl-5">
@@ -85,7 +85,7 @@
                 </div>
                 <nav class="navbar navbar-expand-lg bg-dark navbar-dark p-3 p-lg-0" style="margin-left: 12%">
                     <a href="/" class="navbar-brand d-block d-lg-none">
-                        <h1 class="m-0 text-primary text-uppercase">Mansoura Booking</h1>
+                        <h1 class="m-0 text-primary text-uppercase">Point E-Commerce</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-bs-toggle="collapse"
                             data-bs-target="#navbarCollapse">
