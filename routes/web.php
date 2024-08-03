@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\PromoCodeController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\HotelController;
@@ -63,6 +64,7 @@ Route::middleware('web')->group(function () {
             Route::resource('categories', CategoryController::class);
             Route::resource('users', UserController::class);
             Route::resource('products', ProductController::class);
+            Route::resource('promoCodes', PromoCodeController::class);
             Route::resource('orders', OrderController::class);
             Route::patch('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
             Route::resource('rates', RateController::class);

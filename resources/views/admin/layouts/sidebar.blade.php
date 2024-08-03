@@ -4,7 +4,7 @@
         <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
              class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">لوحه تحكم   Point </span>
+        <span class="brand-text font-weight-light">لوحه تحكم Point</span>
     </a>
 
     <!-- Sidebar -->
@@ -24,35 +24,27 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item  has-treeview {{ $active == 'dashboard' ? 'menu-open': '' }}">
-                    <a href="{{ route('homeDashboard') }}" class="nav-link bg-secondary !important {{ $active == 'dashboard' ? 'active': '' }}">
+                <li class="nav-item has-treeview {{ $active == 'dashboard' ? 'menu-open' : '' }}">
+                    <a href="{{ route('homeDashboard') }}" class="nav-link {{ $active == 'dashboard' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            الرئيسية
-                        </p>
+                        <p>الرئيسية</p>
                     </a>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'categories' ? 'active': '' }}">
+                <li class="nav-item has-treeview {{ $active == 'categories' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $active == 'categories' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-bread-slice"></i>
-                        <p>
-                            الاقسام
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p>الاقسام<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('categories.index') }}"
-                               class="nav-link {{ $active == 'categories' ? 'active': '' }}">
+                            <a href="{{ route('categories.index') }}" class="nav-link {{ $active == 'categories' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
-                            <a href="{{ route('categories.create') }}"
-                               class="nav-link {{ $active == 'categories' ? 'active': '' }}">
+                            <a href="{{ route('categories.create') }}" class="nav-link {{ $active == 'categories' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>اضف القسم</p>
                             </a>
@@ -60,26 +52,20 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'products' ? 'active': '' }}">
+                <li class="nav-item has-treeview {{ $active == 'products' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $active == 'products' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-project-diagram"></i>
-                        <p>
-                            المنتجات
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p>المنتجات<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('products.index') }}"
-                               class="nav-link {{ $active == 'products' ? 'active': '' }}">
+                            <a href="{{ route('products.index') }}" class="nav-link {{ $active == 'products' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
-                            <a href="{{ route('products.create') }}"
-                               class="nav-link {{ $active == 'products' ? 'active': '' }}">
+                            <a href="{{ route('products.create') }}" class="nav-link {{ $active == 'products' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>اضف منتج</p>
                             </a>
@@ -87,64 +73,71 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'orders' ? 'active': '' }}">
+                <li class="nav-item has-treeview {{ $active == 'promoCodes' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $active == 'promoCodes' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tag"></i>
+                        <p>كود الخصم<i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('promoCodes.index') }}" class="nav-link {{ $active == 'promoCodes' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>الكل</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('promoCodes.create') }}" class="nav-link {{ $active == 'promoCodes' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>اضف كود خصم</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="nav-item has-treeview {{ $active == 'orders' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $active == 'orders' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-handshake"></i>
-                        <p>
-                            الاوردرات
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p>الاوردرات<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('orders.index') }}"
-                               class="nav-link {{ $active == 'orders' ? 'active': '' }}">
+                            <a href="{{ route('orders.index') }}" class="nav-link {{ $active == 'orders' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'rates' ? 'active': '' }}">
+
+                <li class="nav-item has-treeview {{ $active == 'rates' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $active == 'rates' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-star"></i>
-                        <p>
-                            التقييمات
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p>التقييمات<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('rates.index') }}"
-                               class="nav-link {{ $active == 'rates' ? 'active': '' }}">
+                            <a href="{{ route('rates.index') }}" class="nav-link {{ $active == 'rates' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
-
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'users' ? 'active': '' }}">
+                <li class="nav-item has-treeview {{ $active == 'users' ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ $active == 'users' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            المستخدمين
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
+                        <p>المستخدمين<i class="fas fa-angle-left right"></i></p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item" {{ $active == 'users' ? 'active': '' }}>
-                            <a href="{{ route('users.index') }}" class="nav-link">
+                        <li class="nav-item">
+                            <a href="{{ route('users.index') }}" class="nav-link {{ $active == 'users' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
-
                         <li class="nav-item">
-                            <a href="{{ route('users.create') }}"
-                               class="nav-link ">
+                            <a href="{{ route('users.create') }}" class="nav-link {{ $active == 'users' ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>اضف مستخدم</p>
                             </a>
@@ -152,10 +145,10 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
-                    <a class="ml-3 nav-link" href="{{ route('logoutUser') }}">
-                        <i class="fas fa-sign-out-alt"></i>
-                        تسجيل الخروج
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logoutUser') }}">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>تسجيل الخروج</p>
                     </a>
                 </li>
             </ul>
