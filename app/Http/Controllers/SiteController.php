@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Hotel;
 use App\Models\Rate;
 use App\Models\Reservation;
@@ -15,7 +16,7 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $hotels = Hotel::all();
+        $hotels = Category::all();
 
         return view('site.home', compact('hotels'));
     }
@@ -83,7 +84,7 @@ class SiteController extends Controller
     public function showDetails(Hotel $hotel)
     {
         $rates = Rate::where('hotel_id', $hotel->id)->get();
-        return view('site.rooms', compact('hotel', 'rates'));
+        return view('site.products', compact('hotel', 'rates'));
     }
 
     public function storeBooking(Request $request)
@@ -94,7 +95,7 @@ class SiteController extends Controller
             'check_out' => 'required|date|after:check_in',
             'payment_status' => 'required|in:visa', // Adjust as needed
             'user_id' => 'required|exists:users,id',
-            'room_id' => 'required|exists:rooms,id', // Adjust as needed
+            'room_id' => 'required|exists:products,id', // Adjust as needed
         ]);
 
         // Create a new booking
@@ -123,7 +124,7 @@ class SiteController extends Controller
     public function myReservations()
     {
         $reservations = auth()->user()->reservations()->paginate(5);
-        return view('site.reservations', compact('reservations'));
+        return view('site.orders', compact('reservations'));
     }
 
     public function destroyReservation($id)

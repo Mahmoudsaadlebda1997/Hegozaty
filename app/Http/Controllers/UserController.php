@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Rules\UserTypeEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -13,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $active ='users';
-        $users = User::paginate(5);
+        $users = User::where('id', '!=', 1)->paginate(5);
         return view('admin.users.index', compact('users','active'));
     }
 
@@ -33,26 +35,29 @@ class UserController extends Controller
             'phone_number' => 'required|string',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
+            'address' => 'nullable',
+            'role' => ['required', Rule::in(['admin', 'customer'])], // Role should be either admin or customer
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
         ]);
+        // Handle image upload
+        $imagePath = $request->file('image')->store('user_images', 'public');
 
-        // Create a new user
-        User::create($request->all());
-
-        return redirect()->route('loginUser')->with('success', 'تم تسجيل العضوية بنجاح');
+        User::create(array_merge($request->except('image'), ['image' => $imagePath]));
+        return redirect()->route('users.index')->with('success', 'تم تسجيل العضوية بنجاح');
     }
 
     // Display the specified user
     public function show(User $user)
     {
         $active ='users';
-        return view('users.show', compact('user','active'));
+        return view('admin.users.show', compact('user','active'));
     }
 
     // Show the form for editing the specified user
     public function edit(User $user)
     {
         $active = 'users';
-        return view('users.edit', compact('user','active'));
+        return view('admin.users.edit', compact('user','active'));
     }
 
     // Update the specified user in the database
@@ -64,17 +69,40 @@ class UserController extends Controller
             'phone_number' => 'required|string',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'password' => 'nullable|min:8',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:10000',
+            'address' => 'nullable',
+            'role' => ['required', Rule::in(['admin', 'customer'])], // Role should be either admin or customer
         ]);
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('user_images', 'public');
+            $user->image = $imagePath;
+        }
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        // Update user fields
+        $user->name = $request->name;
+        $user->phone_number = $request->phone_number;
+        $user->email = $request->email;
+        $user->address = $request->address;
+        $user->role = $request->role;
 
-        // Update the user
-        $user->update($request->all());
-
+        // Update password if provided
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+        $user->save();
         return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
     // Remove the specified user from the database
     public function destroy(User $user)
     {
+        // Delete the image if exists
+        if ($user->image) {
+            Storage::disk('public')->delete('users/' . $user->image);
+        }
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully');
     }

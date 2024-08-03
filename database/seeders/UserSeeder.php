@@ -17,9 +17,10 @@ class UserSeeder extends Seeder
         // Create a default admin user
         DB::table('users')->insert([
             'name' => 'Admin',
-            'phone' => '01000000000',
-            'email' => 'admin@booking.com',
-            'role' => 'admin',
+            'phone_number' => '01000000000',
+            'address' => 'Egypt',
+            'email' => 'superAdmin@point.com',
+            'role' => 'superAdmin',
             'password' => Hash::make('123456789'),
         ]);
     }

@@ -8,13 +8,13 @@
                 <div class="row mb-2">
                     <div class="col-sm-12">
 
-                        <img src="{{ asset('admin/logo/1.jpg') }}" alt="Hotel Image">
+                        <img src="{{ asset('admin/logo/1.webp') }}" style="max-height: 850px; max-width: 800px;" alt="Hotel Image">
 
 
-                        <h1 class="m-4 text-dark" style="font-size: 2.5rem; font-weight: bold; color: #333;">حجز الفنادق -
-                            لوحة التحكم</h1>
+                        <h1 class="m-4 text-dark" style="font-size: 2.5rem; font-weight: bold; color: #333;">لوحة التحكم  - Point E_Commerce
+                            </h1>
                         <h6 style="font-size: 1.5rem; color: #555; margin-bottom: 20px;">مرحبًا بك في لوحة تحكم
-                            حجز الفنادق .</h6>
+                            Point E_Commerce.</h6>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

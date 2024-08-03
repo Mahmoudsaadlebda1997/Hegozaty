@@ -5,16 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RoomMedia extends Model
+class Category extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
+        'name',
         'image',
-        'type',
-        'room_id',
     ];
 
-    public function room()
+    public function products()
     {
-        return $this->belongsTo(Room::class);
+        return $this->hasMany(Product::class);
     }
 }

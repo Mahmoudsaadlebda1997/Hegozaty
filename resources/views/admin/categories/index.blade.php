@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"> الرئيسية - قائمة الغرف</h1>
+                    <h1 class="m-0 text-dark"> الرئيسية - قائمة الاقسام</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">الرئيسية</a></li>
-                        <li class="breadcrumb-item active">قائمة الغرف</li>
+                        <li class="breadcrumb-item active">قائمة الاقسام</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title" style="float: right">قائمة الغرف</h3>
+                        <h3 class="card-title" style="float: right">قائمة الاقسام</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -32,25 +32,27 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>اسم الغرفة</th>
-                                <th>اسم الفندق</th>
-                                <th>السعة</th>
-                                <th>السعر</th>
+                                <th>الصورة</th>
+                                <th>الاسم</th>
                                 <th>الاجراء المتخذ</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($rooms as $room)
+                            @foreach($categories as $category)
                                 <tr>
-                                    <td>{{ $room->id }}</td>
-                                    <td>{{ $room->name }}</td>
-                                    <td>{{ $room->hotel->name }}</td>
-                                    <td>{{ $room->capacity }}</td>
-                                    <td>{{ $room->price }}</td>
+                                    <td>{{ $category->id }}</td>
                                     <td>
-                                        <a href="{{ route('rooms.show', $room->id) }}" class="btn btn-info btn-sm">عرض</a>
-                                        <a href="{{ route('rooms.edit', $room->id) }}" class="btn btn-warning btn-sm">تعديل</a>
-                                        <form action="{{ route('rooms.destroy', $room->id) }}" method="post" style="display: inline-block;">
+                                        @if($category->image)
+                                            <img src="{{ $category->image ? asset('storage/' . $category->image) : asset('images/no-image.png') }}" class="card-img-top img-fluid mx-auto d-block" style="max-width: 125px; max-height: 125px;" alt="{{ $category->name }}">
+                                        @else
+                                            No Image
+                                        @endif
+                                    </td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>
+                                        <a href="{{ route('categories.show', $category->id) }}" class="btn btn-info btn-sm">عرض</a>
+                                        <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-warning btn-sm">تعديل</a>
+                                        <form action="{{ route('categories.destroy', $category->id) }}" method="post" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
@@ -61,7 +63,7 @@
                             </tbody>
                         </table>
                         <div class="text-center justify-content-center m-3">
-                            {{ $rooms->links() }}
+                            {{ $categories->links() }}
                         </div>
                     </div>
                     <!-- /.card-body -->

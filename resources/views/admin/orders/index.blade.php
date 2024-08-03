@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"> الرئيسية - قائمة الحجوزات</h1>
+                    <h1 class="m-0 text-dark"> الرئيسية - قائمة الاوردرات</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">الرئيسية</a></li>
-                        <li class="breadcrumb-item active">قائمة الحجوزات</li>
+                        <li class="breadcrumb-item active">قائمة الاوردرات</li>
                     </ol>
                 </div>
             </div>
@@ -24,7 +24,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title" style="float: right">قائمة الحجوزات</h3>
+                        <h3 class="card-title" style="float: right">قائمة الاوردرات</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -32,45 +32,49 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>اسم الغرفة</th>
+                                <th>اسم العميل</th>
+                                <th>اسامي المنتجات</th>
                                 <th>تاريخ الحجز</th>
-                                <th>تاريخ الوصول</th>
-                                <th>تاريخ المغادرة</th>
                                 <th>الحالة</th>
                                 <th>الاجراء المتخذ</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($reservations as $reservation)
+                            @foreach($orders as $order)
                                 <tr>
-                                    <td>{{ $reservation->id }}</td>
-                                    <td>{{ $reservation->room->name }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation->created_at)->format('Y-m-d h:i a') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation->check_in)->format('Y-m-d h:i a') }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation->check_out)->format('Y-m-d h:i a') }}</td>
+                                    <td>{{ $order->id }}</td>
+                                    <td>{{ $order->user->name }}</td>
                                     <td>
-                                        @if($reservation->status === 'pending')
+                                        @foreach($order->products as $product)
+                                            <div>{{ $product->name }}</div>
+                                        @endforeach
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($order->created_at)->format('Y-m-d h:i a') }}</td>
+                                    <td>
+                                        @if($order->status === 'pending')
                                             <span class="badge badge-warning">قيد الانتظار</span>
-                                        @elseif($reservation->status === 'accepted')
+                                        @elseif($order->status === 'accepted')
                                             <span class="badge badge-success">تم القبول</span>
-                                        @elseif($reservation->status === 'cancelled')
+                                        @elseif($order->status === 'cancelled')
                                             <span class="badge badge-danger">تم الإلغاء</span>
+                                        @elseif($order->status === 'paid')
+                                            <span class="badge badge-danger">تم الدفع</span>
                                         @else
                                             <span class="badge badge-secondary">غير معروف</span>
                                         @endif
                                     </td>
                                     <td>
-                                        <form action="{{ route('reservations.update-status', $reservation->id) }}" method="post" style="display: inline-block;">
+                                        <form action="{{ route('orders.update-status', $order->id) }}" method="post" style="display: inline-block;">
                                             @csrf
                                             @method('PATCH')
                                             <select name="status" onchange="this.form.submit()" class="form-control">
-                                                <option value="accepted" {{ $reservation->status === 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
-                                                <option value="accepted" {{ $reservation->status === 'accepted' ? 'selected' : '' }}>تم القبول</option>
-                                                <option value="cancelled" {{ $reservation->status === 'cancelled' ? 'selected' : '' }}>تم الإلغاء</option>
-                                                <!-- Add more status options as needed -->
+                                                <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
+                                                <option value="accepted" {{ $order->status === 'accepted' ? 'selected' : '' }}>تم القبول</option>
+                                                <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>تم الإلغاء</option>
+                                                <option value="paid" {{ $order->status === 'paid' ? 'selected' : '' }}>تم الدفع</option>
                                             </select>
                                         </form>
-                                        <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post" style="display: inline-block;">
+                                        <form action="{{ route('orders.destroy', $order->id) }}" method="post" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
@@ -81,7 +85,7 @@
                             </tbody>
                         </table>
                         <div class="text-center justify-content-center m-3">
-                            {{ $reservations->links() }}
+                            {{ $orders->links() }}
                         </div>
                     </div>
                     <!-- /.card-body -->

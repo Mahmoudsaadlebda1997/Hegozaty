@@ -14,15 +14,15 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = Room::paginate(5);
-        $active = 'rooms';
-        return view('admin.rooms.index', compact('rooms', 'active'));
+        $active = 'products';
+        return view('admin.products.index', compact('rooms', 'active'));
     }
 
     public function create()
     {
-        $active = 'rooms';
+        $active = 'products';
         $hotels = Hotel::all();
-        return view('admin.rooms.create', compact('active', 'hotels'));
+        return view('admin.products.create', compact('active', 'hotels'));
     }
 
     public function store(Request $request)
@@ -57,22 +57,22 @@ class RoomController extends Controller
             }
         }
 
-        return redirect()->route('rooms.index')->with('success', 'تم اضافه الغرفه');
+        return redirect()->route('products.index')->with('success', 'تم اضافه الغرفه');
     }
 
     public function show($id)
     {
         $room = Room::findOrFail($id);
-        $active = 'rooms';
-        return view('admin.rooms.show', compact('room', 'active'));
+        $active = 'products';
+        return view('admin.products.show', compact('room', 'active'));
     }
 
     public function edit($id)
     {
         $room = Room::findOrFail($id);
-        $active = 'rooms';
+        $active = 'products';
         $hotels = Hotel::all();
-        return view('admin.rooms.edit', compact('room', 'active', 'hotels'));
+        return view('admin.products.edit', compact('room', 'active', 'hotels'));
     }
 
     public function update(Request $request, $id)
@@ -120,7 +120,7 @@ class RoomController extends Controller
             }
         }
 
-        return redirect()->route('rooms.index')->with('success', 'تم تعديل الغرفة');
+        return redirect()->route('products.index')->with('success', 'تم تعديل الغرفة');
     }
 
 
@@ -132,6 +132,6 @@ class RoomController extends Controller
         // Delete associated Room Media if any
         RoomMedia::where('room_id', $id)->delete();
 
-        return redirect()->route('rooms.index')->with('success', 'تم مسخ الغرفه');
+        return redirect()->route('products.index')->with('success', 'تم مسخ الغرفه');
     }
 }

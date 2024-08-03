@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\HotelController;
@@ -46,23 +49,22 @@ Route::middleware('web')->group(function () {
 //    غرف الفنادق
     Route::get('/hotel/{hotel}', [SiteController::class, 'showDetails'])->name('hotel.details');
         // عرض الغرف
-//        Route::get('/rooms/{id}/details', [SiteController::class, 'showRoomDetails'])->name('room.details');
+//        Route::get('/products/{id}/details', [SiteController::class, 'showRoomDetails'])->name('room.details');
     // Dashboard route (protected by auth middleware)
     Route::middleware(['auth'])->group(function () {
         //        Site Routes
         Route::post('/booking', [SiteController::class, 'storeBooking'])->name('booking.store');
-        Route::get('/reservations', [SiteController::class, 'myReservations'])->name('myReservations');
-        Route::delete('/reservations/{id}', [SiteController::class, 'destroyReservation'])->name('destroyReservation');
+        Route::get('/orders', [SiteController::class, 'myReservations'])->name('myReservations');
+        Route::delete('/orders/{id}', [SiteController::class, 'destroyReservation'])->name('destroyReservation');
         Route::post('/save-rating', [RateController::class, 'saveRating'])->name('save.rating');
 
         // Admin routes
         Route::prefix('admin')->group(function () {
-            Route::resource('hotels', HotelController::class);
+            Route::resource('categories', CategoryController::class);
             Route::resource('users', UserController::class);
-            Route::resource('rooms', RoomController::class);
-            Route::resource('reservations', ReservationController::class);
-            Route::patch('/reservations/{id}/update-status', [ReservationController::class, 'updateStatus'])
-                ->name('reservations.update-status');
+            Route::resource('products', ProductController::class);
+            Route::resource('orders', OrderController::class);
+            Route::patch('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
             Route::resource('rates', RateController::class);
             Route::get('/dashboard', [HomeController::class, 'home'])->name('homeDashboard');
         });

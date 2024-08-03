@@ -5,22 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rate extends Model
+class Order extends Model
 {
+    use HasFactory;
     protected $fillable = [
+        'total_price',
         'user_id',
-        'product_id',
-        'rate',
-        'comment',
+        'status',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function product()
+    public function products()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsToMany(Product::class, 'order_products')
+            ->withPivot('quantity')
+            ->withTimestamps();
     }
 }

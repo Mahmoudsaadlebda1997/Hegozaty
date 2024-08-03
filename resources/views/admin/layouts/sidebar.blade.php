@@ -4,7 +4,7 @@
         <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
              class="brand-image img-circle elevation-3"
              style="opacity: .8">
-        <span class="brand-text font-weight-light">حجز الفنادق</span>
+        <span class="brand-text font-weight-light">لوحه تحكم   Point </span>
     </a>
 
     <!-- Sidebar -->
@@ -34,71 +34,71 @@
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
-                        <i class="nav-icon fas fa-hotel"></i>
+                    <a href="#" class="nav-link {{ $active == 'categories' ? 'active': '' }}">
+                        <i class="nav-icon fas fa-bread-slice"></i>
                         <p>
-                            الفنادق
+                            الاقسام
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('hotels.index') }}"
-                               class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
+                            <a href="{{ route('categories.index') }}"
+                               class="nav-link {{ $active == 'categories' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('hotels.create') }}"
-                               class="nav-link {{ $active == 'hotels' ? 'active': '' }}">
+                            <a href="{{ route('categories.create') }}"
+                               class="nav-link {{ $active == 'categories' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>اضف فندق</p>
+                                <p>اضف القسم</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'rooms' ? 'active': '' }}">
-                        <i class="nav-icon fas fa-home"></i>
+                    <a href="#" class="nav-link {{ $active == 'products' ? 'active': '' }}">
+                        <i class="nav-icon fas fa-project-diagram"></i>
                         <p>
-                            الغرف
+                            المنتجات
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('rooms.index') }}"
-                               class="nav-link {{ $active == 'rooms' ? 'active': '' }}">
+                            <a href="{{ route('products.index') }}"
+                               class="nav-link {{ $active == 'products' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('rooms.create') }}"
-                               class="nav-link {{ $active == 'rooms' ? 'active': '' }}">
+                            <a href="{{ route('products.create') }}"
+                               class="nav-link {{ $active == 'products' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>اضف غرفه</p>
+                                <p>اضف منتج</p>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link {{ $active == 'reservations' ? 'active': '' }}">
+                    <a href="#" class="nav-link {{ $active == 'orders' ? 'active': '' }}">
                         <i class="nav-icon fas fa-handshake"></i>
                         <p>
-                            الحجوزات
+                            الاوردرات
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('reservations.index') }}"
-                               class="nav-link {{ $active == 'reservations' ? 'active': '' }}">
+                            <a href="{{ route('orders.index') }}"
+                               class="nav-link {{ $active == 'orders' ? 'active': '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>الكل</p>
                             </a>

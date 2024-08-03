@@ -42,7 +42,7 @@ class RateController extends Controller
         $request->validate([
             'rating' => 'required|integer|between:1,5',
             'comment' => 'nullable|string',
-            'hotelId' => 'required|exists:hotels,id',
+            'hotelId' => 'required|exists:categories,id',
             'userId' => 'required|exists:users,id',
         ]);
 
