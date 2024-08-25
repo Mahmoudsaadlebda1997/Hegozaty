@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Hotel;
+use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Product;
 use App\Models\Rate;
 use App\Models\Reservation;
 use App\Models\Room;
@@ -16,9 +19,9 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $hotels = Category::all();
+        $products = Product::all();
 
-        return view('site.home', compact('hotels'));
+        return view('site.home', compact('products'));
     }
 
     // عرض صفحة تسجيل الدخول المستخدم
@@ -38,6 +41,7 @@ class SiteController extends Controller
 
         // Attempt to log in the user
         $credentials = $request->only('email', 'password');
+//        dd($credentials);
         if (Auth::attempt($credentials)) {
             // Authentication passed
             return redirect()->intended(route('mainSite'))->with('success', 'تم تسجيل الدخول بنجاح');
@@ -67,7 +71,7 @@ class SiteController extends Controller
             'name' => 'required|string',
             'password' => 'required|string|min:6',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|string|unique:users,phone',
+            'phone_number' => 'required|string|unique:users,phone_number',
             'role' => 'required',
         ]);
         // Create a new user
@@ -75,68 +79,123 @@ class SiteController extends Controller
             'name' => $request->input('name'),
             'password' => bcrypt($request->input('password')),
             'email' => $request->input('email'),
-            'phone' => $request->input('phone'),
+            'phone_number' => $request->input('phone_number'),
             'role' => $request->input('role'),
         ]);
         return redirect()->route('mainSite')->with('success', 'تم تسجيل العضوية بنجاح.');
     }
 
-    public function showDetails(Hotel $hotel)
+    public function showDetails(Product $product)
     {
-        $rates = Rate::where('hotel_id', $hotel->id)->get();
-        return view('site.products', compact('hotel', 'rates'));
+        $rates = Rate::where('product_id', $product->id)->get();
+        return view('site.details', compact('product', 'rates'));
     }
 
-    public function storeBooking(Request $request)
-    {
-        // Validate the form data
-        $request->validate([
-            'check_in' => 'required|date',
-            'check_out' => 'required|date|after:check_in',
-            'payment_status' => 'required|in:visa', // Adjust as needed
-            'user_id' => 'required|exists:users,id',
-            'room_id' => 'required|exists:products,id', // Adjust as needed
-        ]);
-
-        // Create a new booking
-        $reservation = new Reservation([
-            'check_in' => $request->input('check_in'),
-            'check_out' => $request->input('check_out'),
-            'payment_status' => $request->input('payment_status'),
-            'user_id' => $request->input('user_id'),
-            'room_id' => $request->input('room_id'),
-        ]);
-
-        // Save the booking to the database
-        $reservation->save();
-
-        // You can also return a response if needed
-        return response()->json(['success' => 'تم الحجز بنجاح'], 200);
-    }
 
     public function showRoomDetails($id)
     {
-        $room = Room::findOrFail($id);
+        $product = Product::findOrFail($id);
 
-        return view('site.details', compact('room'));
+        return view('site.details', compact('product'));
     }
 
-    public function myReservations()
+    public function myOrders()
     {
-        $reservations = auth()->user()->reservations()->paginate(5);
-        return view('site.orders', compact('reservations'));
+        $orders = auth()->user()->orders()->paginate(5);
+        return view('site.orders', compact('orders'));
     }
 
-    public function destroyReservation($id)
+    public function destroyOrder($id)
     {
-        $reservation = Reservation::find($id);
+        $order = Order::find($id);
 
         // Check if the reservation belongs to the authenticated user
-        if (auth()->user()->id === $reservation->user_id) {
-            $reservation->delete();
+        if (auth()->user()->id === $order->user_id) {
+            $order->delete();
         }
 
-        return redirect()->route('myReservations')->with('success', 'تم الغاء الحجز');
+        return redirect()->route('myOrders')->with('success', 'تم الغاء الاوردر');
     }
 
+    public function add(Request $request)
+    {
+        $cart = session()->get('cart', []);
+
+        $id = $request->id;
+        $product = [
+            "name" => $request->name,
+            "quantity" => 1,
+            "price" => $request->price,
+        ];
+
+        // If product already exists in cart, increment the quantity
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity']++;
+        } else {
+            $cart[$id] = $product;
+        }
+
+        session()->put('cart', $cart);
+
+        return response()->json([
+            'success' => true,
+            'cartCount' => count($cart),
+        ]);
+    }
+
+    public function indexCart()
+    {
+        $cartItems = session()->get('cart', []);
+        return view('site.cart.index', compact('cartItems'));
+    }
+    // Remove an Item from the Cart
+    public function remove($id)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
+
+        return redirect()->route('cart.index')->with('success', 'تم مسح المنتج بنجاح.');
+    }
+
+//    Create Order
+    public function createOrder(Request $request)
+    {
+        $user = Auth::user();
+
+        if (!$user) {
+            return redirect()->route('cart.index')->withErrors(['message' => 'يرجي تسجيل الدخول لاتمام عمليه الشراء.']);
+        }
+
+        $cartItems = session('cart', []);
+
+        if (empty($cartItems)) {
+            return redirect()->route('cart.index')->withErrors(['message' => 'سله مشترياتك فارغه.']);
+        }
+
+        // Create the order
+        $order = Order::create([
+            'total_price' => array_sum(array_column($cartItems, 'price')) * array_sum(array_column($cartItems, 'quantity')),
+            'status' => 'pending',
+            'pay_type' => $request->pay_type,
+            'user_id' => $user->id,
+        ]);
+
+        // Add order items
+        foreach ($cartItems as $id => $item) {
+            OrderProduct::create([
+                'order_id' => $order->id,
+                'product_id' => $id,
+                'quantity' => $item['quantity'],
+            ]);
+        }
+
+        // Clear the cart
+        $request->session()->forget('cart');
+
+        return redirect()->route('cart.index')->with('success', 'تم عمل الاوردر بنجاح سيتم التواصل معك قريبا ');
+    }
 }

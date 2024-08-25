@@ -47,28 +47,34 @@ Route::middleware('web')->group(function () {
     // تسجيل الخروج
     Route::get('/logout', [AuthController::class, 'logout'])->name('logoutUser');
 
-//    غرف الفنادق
-    Route::get('/hotel/{hotel}', [SiteController::class, 'showDetails'])->name('hotel.details');
-        // عرض الغرف
+//    المنتجات
+    Route::get('/product/{product}', [SiteController::class, 'showDetails'])->name('product.details');
+    // عرض الغرف
 //        Route::get('/products/{id}/details', [SiteController::class, 'showRoomDetails'])->name('room.details');
-    // Dashboard route (protected by auth middleware)
+//card
+    Route::post('/cart/add', [SiteController::class, 'add'])->name('cart.add');
+    Route::get('/cart', [SiteController::class, 'indexCart'])->name('cart.index');
+    Route::delete('/cart/remove/{id}', [SiteController::class, 'remove'])->name('cart.remove');
     Route::middleware(['auth'])->group(function () {
+        // Dashboard route (protected by auth middleware)
         //        Site Routes
-        Route::post('/booking', [SiteController::class, 'storeBooking'])->name('booking.store');
-        Route::get('/orders', [SiteController::class, 'myReservations'])->name('myReservations');
-        Route::delete('/orders/{id}', [SiteController::class, 'destroyReservation'])->name('destroyReservation');
+        Route::post('/order/create', [SiteController::class, 'createOrder'])->name('order.create');
+        Route::get('/orders', [SiteController::class, 'myOrders'])->name('myOrders');
+        Route::delete('/orders/{id}', [SiteController::class, 'destroyOrder'])->name('destroyOrder');
         Route::post('/save-rating', [RateController::class, 'saveRating'])->name('save.rating');
+        Route::middleware(['auth', 'checkCustomerRole'])->group(function () {
 
-        // Admin routes
-        Route::prefix('admin')->group(function () {
-            Route::resource('categories', CategoryController::class);
-            Route::resource('users', UserController::class);
-            Route::resource('products', ProductController::class);
-            Route::resource('promoCodes', PromoCodeController::class);
-            Route::resource('orders', OrderController::class);
-            Route::patch('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
-            Route::resource('rates', RateController::class);
-            Route::get('/dashboard', [HomeController::class, 'home'])->name('homeDashboard');
+            // Admin routes
+            Route::prefix('admin')->group(function () {
+                Route::resource('categories', CategoryController::class);
+                Route::resource('users', UserController::class);
+                Route::resource('products', ProductController::class);
+                Route::resource('promoCodes', PromoCodeController::class);
+                Route::resource('orders', OrderController::class);
+                Route::patch('/orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.update-status');
+                Route::resource('rates', RateController::class);
+                Route::get('/dashboard', [HomeController::class, 'home'])->name('homeDashboard');
+            });
         });
     });
 });

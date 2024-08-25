@@ -12,7 +12,7 @@ class SiteTypeEmail implements Rule
     public function passes($attribute, $value)
     {
         // Check if the email belongs to user_type 'ADMIN' or 'DOCTOR'
-        return DB::table('users')->where('email', $value)->where('role', 'user')->exists();
+        return DB::table('users')->where('email', $value)->where('role', 'customer')->exists();
     }
 
     public function message()

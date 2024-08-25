@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->double('total_price')->nullable();
+            $table->string('pay_type')->default('vodafoneCash');
             $table->string('status')->default('pending'); // Pending Paid Cancelled Delivered
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

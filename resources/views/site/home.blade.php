@@ -5,35 +5,29 @@
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="w-100" src="{{ asset('site/img/carousel-1.jpg') }}" alt="Image">
+                    <img class="w-100" src="{{ asset('site/img/about3.jpeg') }}" alt="Electronics Image 1">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 700px;">
-                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">المعيشة
-                                الفاخرة</h6>
-                            <h1 class="display-3 text-white mb-4 animated slideInDown">اكتشف فندقًا فاخرًا ذو علامة
-                                تجارية</h1>
+                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">الأجهزة الإلكترونية</h6>
+                            <h1 class="display-3 text-white mb-4 animated slideInDown">استكشف أحدث الأجهزة الإلكترونية</h1>
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="w-100" src="{{ asset('site/img/carousel-2.jpg') }}" alt="Image">
+                    <img class="w-100" src="{{ asset('site/img/about5.jpeg') }}" alt="Electronics Image 2">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 700px;">
-                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">الحياة
-                                المرفهة</h6>
-                            <h1 class="display-3 text-white mb-4 animated slideInDown">اكتشف فندقًا مرفه ذو علامة
-                                مشهورة</h1>
+                            <h6 class="section-title text-white text-uppercase mb-3 animated slideInDown">أفضل العروض</h6>
+                            <h1 class="display-3 text-white mb-4 animated slideInDown">احصل على أفضل العروض على الأجهزة الإلكترونية</h1>
                         </div>
                     </div>
                 </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel"
-                    data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">السابق</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel"
-                    data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">التالي</span>
             </button>
@@ -42,39 +36,40 @@
     <!-- Carousel End -->
 
 
+
     <!-- About Start -->
     <div class="container-xxl py-5" id="about">
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
                     <h6 class="section-title text-start text-primary text-uppercase">من نحن</h6>
-                    <h1 class="mb-4">اهلا بك في <span class="text-primary text-uppercase">Mansoura Booking</span></h1>
-                    <p class="mb-4">نقدم لك افضل فنادق المنصورة وحجز افضل الغرف بكل سهولة بافضل واشمل الخدمات</p>
+                    <h1 class="mb-4">اهلا بك في <span class="text-primary text-uppercase">Point E-Commerce</span></h1>
+                    <p class="mb-4">نقدم لك أفضل تجربة تسوق عبر الإنترنت مع مجموعة واسعة من المنتجات والخدمات عالية الجودة. اكتشف الآن وكن جزءًا من تجربة تسوق مميزة وسهلة.</p>
                     <div class="row g-3 pb-4">
                         <div class="col-sm-4 wow fadeIn" data-wow-delay="0.1s">
                             <div class="border rounded p-1">
                                 <div class="border rounded text-center p-4">
-                                    <i class="fa fa-hotel fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up">854</h2>
-                                    <p class="mb-0">غرفة</p>
+                                    <i class="fa fa-boxes fa-2x text-primary mb-2"></i>
+                                    <h2 class="mb-1" data-toggle="counter-up">5000</h2>
+                                    <p class="mb-0">منتج</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 wow fadeIn" data-wow-delay="0.3s">
                             <div class="border rounded p-1">
                                 <div class="border rounded text-center p-4">
-                                    <i class="fa fa-users-cog fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up">1234</h2>
-                                    <p class="mb-0">طاقم</p>
+                                    <i class="fa fa-users fa-2x text-primary mb-2"></i>
+                                    <h2 class="mb-1" data-toggle="counter-up">3000</h2>
+                                    <p class="mb-0">عملاء</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-4 wow fadeIn" data-wow-delay="0.5s">
                             <div class="border rounded p-1">
                                 <div class="border rounded text-center p-4">
-                                    <i class="fa fa-users fa-2x text-primary mb-2"></i>
-                                    <h2 class="mb-1" data-toggle="counter-up">4512</h2>
-                                    <p class="mb-0">عميل</p>
+                                    <i class="fa fa-truck fa-2x text-primary mb-2"></i>
+                                    <h2 class="mb-1" data-toggle="counter-up">1500</h2>
+                                    <p class="mb-0">شحنة</p>
                                 </div>
                             </div>
                         </div>
@@ -84,19 +79,19 @@
                     <div class="row g-3">
                         <div class="col-6 text-end">
                             <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.1s"
-                                 src="{{ asset('site/img/about-1.jpg') }}" style="margin-top: 25%;">
+                                 src="{{ asset('site/img/about4.png') }}" style="margin-top: 25%;">
                         </div>
                         <div class="col-6 text-start">
                             <img class="img-fluid rounded w-100 wow zoomIn" data-wow-delay="0.3s"
-                                 src="{{ asset('site/img/about-2.jpg') }}">
+                                 src="{{ asset('site/img/about5.jpeg') }}">
                         </div>
                         <div class="col-6 text-end">
                             <img class="img-fluid rounded w-50 wow zoomIn" data-wow-delay="0.5s"
-                                 src="{{ asset('site/img/about-3.jpg') }}">
+                                 src="{{ asset('site/img/about2.jpg') }}">
                         </div>
                         <div class="col-6 text-start">
                             <img class="img-fluid rounded w-75 wow zoomIn" data-wow-delay="0.7s"
-                                 src="{{ asset('site/img/about-2.jpg') }}">
+                                 src="{{ asset('site/img/about3.jpeg') }}">
                         </div>
                     </div>
                 </div>
@@ -106,41 +101,40 @@
     <!-- About End -->
 
 
-    <!-- Hotels Start -->
-    <div class="container-xxl py-5" id="hotels" dir="rtl">
+    <!-- Products Start -->
+    <div class="container-xxl py-5" id="products" dir="rtl">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title text-center text-primary text-uppercase">فنادقنا</h6>
-                <h1 class="mb-5">اكتشف <span class="text-primary text-uppercase">الفنادق</span></h1>
+                <h6 class="section-title text-center text-primary text-uppercase">منتجاتنا</h6>
+                <h1 class="mb-5">اكتشف <span class="text-primary text-uppercase">المنتجات</span></h1>
             </div>
             <div class="row g-4">
-                @foreach($hotels as $hotel)
-                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ 0.1 + $loop->index * 0.1}}s">
-                        <div class="room-item shadow rounded overflow-hidden">
-                            <div class="position-relative">
-                                <img class="img-fluid" src="{{ asset('storage/' . $hotel->image) }}" alt="{{ $hotel->name }}">
+                @foreach($products as $product)
+                    <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ 0.1 + $loop->index * 0.1 }}s">
+                        <div class="product-item shadow rounded overflow-hidden text-center">
+                            <div class="image-wrapper d-flex justify-content-center align-items-center">
+                                @isset($product->media()->first()->image)
+                                <img class="img-fluid" src="{{ asset('storage/' . $product->media()->first()->image) ?? null }}" alt="{{ $product->name }}" style="max-width: 100%; height: 200px; object-fit: cover;">
+                           @endisset
                             </div>
                             <div class="p-4 mt-2">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <h5 class="mb-0">{{ $hotel->name }}</h5>
-                                    <div class="ps-2">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            @if ($i <= $hotel->rating)
-                                                <small class="fa fa-star text-primary"></small>
-                                            @else
-                                                <small class="far fa-star text-primary"></small>
-                                            @endif
-                                        @endfor
-                                    </div>
+                                <div class=" align-items-center">
+                                    <h5 class="mb-0">{{ $product->name }}</h5>
                                 </div>
-                                <p class="text-body mb-3">{{ $hotel->description }}</p>
-                                <div class="d-flex justify-content-between">
-                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('hotel.details', ['hotel' => $hotel->id]) }}">التفاصيل</a>
-                                    @auth
-                                        <button class="btn btn-sm btn-success rounded py-2 px-4" data-bs-toggle="modal" data-bs-target="#ratingModal" data-hotel-id="{{ $hotel->id }}">قيم الفندق</button>
-                                    @endauth
+                                    <span class="text-primary fs-5">${{ $product->price }}</span>
+                                <p class="text-body mb-3">{{ $product->description }}</p>
+                                <div class="d-flex justify-content-center" style="gap: 10px;">
+                                    <button class="btn btn-primary add-to-cart-btn"
+                                            data-id="{{ $product->id }}"
+                                            data-name="{{ $product->name }}"
+                                            data-price="{{ $product->price }}"
+                                            style="margin-right: 10px;">
+                                        إضافة إلى السلة
+                                    </button>
+                                    <a class="btn btn-sm btn-primary rounded py-2 px-4" href="{{ route('product.details', ['product' => $product->id]) }}">
+                                        التفاصيل
+                                    </a>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -148,6 +142,8 @@
             </div>
         </div>
     </div>
+    <!-- Products End -->
+
     <!-- Modal for Rating and Comment -->
     <div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -185,7 +181,65 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).ready(function () {
+            document.addEventListener('DOMContentLoaded', function() {
+                function showSuccessToast() {
+                    var toastEl = document.getElementById('success-toast');
+                    var toast = new bootstrap.Toast(toastEl);
+                    toast.show();
+                }
+
+                document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productId = this.dataset.id;
+                        const productName = this.dataset.name;
+                        const productPrice = this.dataset.price;
+
+                        fetch('/cart/add', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            },
+                            body: JSON.stringify({
+                                id: productId,
+                                name: productName,
+                                price: productPrice
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.success) {
+                                    // Update the cart count in the navbar
+                                    document.querySelector('.cart-count').textContent = data.cartCount;
+
+                                    // Optionally, show a success message
+                                    showSuccessToast();
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('حدث خطأ أثناء إضافة المنتج إلى السلة.');
+                            });
+                    });
+                });
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             // Handle the click event of the Rate button
             $('.btn-success[data-bs-target="#ratingModal"]').on('click', function () {
                 var hotelId = $(this).data('hotel-id'); // Update this line
@@ -216,7 +270,6 @@
                         alert('هناك مشكله في التقييم.');
                     }
                 });
-            });
         });
     </script>
 

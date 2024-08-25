@@ -36,7 +36,9 @@
                                 <th>اسامي المنتجات</th>
                                 <th>تاريخ الحجز</th>
                                 <th>الحالة</th>
-                                <th>الاجراء المتخذ</th>
+                                @if(auth()->user()->role === 'admin' || auth()->user()->role === 'superAdmin')
+                                    <th>الاجراء المتخذ</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -63,23 +65,42 @@
                                             <span class="badge badge-secondary">غير معروف</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <form action="{{ route('orders.update-status', $order->id) }}" method="post" style="display: inline-block;">
-                                            @csrf
-                                            @method('PATCH')
-                                            <select name="status" onchange="this.form.submit()" class="form-control">
-                                                <option value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
-                                                <option value="accepted" {{ $order->status === 'accepted' ? 'selected' : '' }}>تم القبول</option>
-                                                <option value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>تم الإلغاء</option>
-                                                <option value="paid" {{ $order->status === 'paid' ? 'selected' : '' }}>تم الدفع</option>
-                                            </select>
-                                        </form>
-                                        <form action="{{ route('orders.destroy', $order->id) }}" method="post" style="display: inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
-                                        </form>
-                                    </td>
+                                    @if(auth()->user()->role === 'admin' || auth()->user()->role === 'superAdmin')
+                                        <td>
+                                            <form action="{{ route('orders.update-status', $order->id) }}" method="post"
+                                                  style="display: inline-block;">
+                                                @csrf
+                                                @method('PATCH')
+                                                <select name="status" onchange="this.form.submit()"
+                                                        class="form-control">
+                                                    <option
+                                                        value="pending" {{ $order->status === 'pending' ? 'selected' : '' }}>
+                                                        قيد الانتظار
+                                                    </option>
+                                                    <option
+                                                        value="accepted" {{ $order->status === 'accepted' ? 'selected' : '' }}>
+                                                        تم القبول
+                                                    </option>
+                                                    <option
+                                                        value="cancelled" {{ $order->status === 'cancelled' ? 'selected' : '' }}>
+                                                        تم الإلغاء
+                                                    </option>
+                                                    <option
+                                                        value="paid" {{ $order->status === 'paid' ? 'selected' : '' }}>
+                                                        تم الدفع
+                                                    </option>
+                                                </select>
+                                            </form>
+                                            <form action="{{ route('orders.destroy', $order->id) }}" method="post"
+                                                  style="display: inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('هل أنت متأكد؟')">حذف
+                                                </button>
+                                            </form>
+                                        </td>
+                                    @endif
                                 </tr>
                             @endforeach
                             </tbody>

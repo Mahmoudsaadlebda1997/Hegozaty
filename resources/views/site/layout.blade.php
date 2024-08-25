@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
@@ -17,8 +18,9 @@
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -35,6 +37,23 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('site/css/style.css') }}" rel="stylesheet">
     <style>
+        /* Ensure the image container maintains the fixed size and centers the image */
+        .image-wrapper {
+            width: 100%;
+            height: 200px; /* Adjust the height as needed */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f8f9fa; /* Optional: set a background color */
+        }
+
+        .fixed-size {
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: cover; /* Ensures the image covers the fixed dimensions without distortion */
+        }
         .breadcrumb {
             background: none;
         !important;
@@ -92,12 +111,19 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav mr-auto py-0">
+                        <div class="navbar-nav me-auto py-0">
                             <a href="/#" class="nav-item nav-link active">الرئيسية</a>
                             <a href="/#about" class="nav-item nav-link">من نحن</a>
-                            <a href="/#hotels" class="nav-item nav-link">الفنادق</a>
+                            <a href="/#products" class="nav-item nav-link">المنتجات</a>
+                            <a href="{{ route('cart.index') }}" class="nav-item nav-link position-relative d-flex align-items-center">
+                                <i class="fa fa-shopping-cart text-primary fs-5"></i>
+                                <span class="badge bg-danger position-absolute top-0 mt-3 start-100 translate-middle cart-count"
+                                      style="transform: translate(-50%, -50%);">
+                                    {{ count(session('cart', [])) }}
+                                </span>
+                            </a>
                             @auth
-                                <a href="{{ route('myReservations') }}" class="nav-item nav-link">حجوزاتي</a>
+                                <a href="{{ route('myOrders') }}" class="nav-item nav-link">مشترياتي</a>
                                 <a href="{{ route('logoutUser') }}" class="nav-item nav-link">تسجيل الخروج</a>
                             @endauth
                             @guest
@@ -117,24 +143,36 @@
 
 
 </div>
+{{--Toast--}}
+<div id="toast-container" class="position-fixed top-0 start-50 translate-middle-x p-3" style="z-index: 1050;">
+    <div id="success-toast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body fs-5">
+                تمت إضافة المنتج إلى السلة بنجاح!
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+</div>
+
 <!-- Footer Start -->
 <div class="container-fluid bg-dark text-light footer wow fadeIn" data-wow-delay="0.1s">
     <div class="container pb-5">
         <div class="row g-5">
             <div class="col-md-6 col-lg-4">
                 <div class="bg-primary rounded p-4">
-                    <a href="/"><h1 class="text-white text-uppercase mb-3">Mansoura Booking</h1></a>
+                    <a href="/"><h1 class="text-white text-uppercase mb-3">Point E-Commerce</h1></a>
                     <p class="text-white mb-0">
-                        منصة منصورة بوكينج .. اول منصة عربية لحجز الفنادق في المنصورة - معهد الدلتا العالي لنظم
-                        المعلومات الإدارية والمحاسبية بالمنصورة
+                        منصة بوينت للتجاره الالكترونيه .. اول منصة عربية للتجاره الالكترونيه في مجال الالكترونيات
                     </p>
                 </div>
             </div>
+
             <div class="col-md-6 col-lg-3">
                 <h6 class="section-title text-start text-primary text-uppercase mb-4">التواصل</h6>
-                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>معهد الدلتا - المنصورة</p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>بوينت - للتجاره الالكترونيه</p>
                 <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p>
-                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@mansoura_booking.com</p>
+                <p class="mb-2"><i class="fa fa-envelope me-3"></i>info@point-ecommerce.com</p>
                 <div class="d-flex pt-2">
                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-twitter"></i></a>
                     <a class="btn btn-outline-light btn-social" href=""><i class="fab fa-facebook-f"></i></a>
@@ -148,7 +186,7 @@
                         <h6 class="section-title text-start text-primary text-uppercase mb-4">روابط</h6>
                         <a class="btn btn-link" href="/#about">عن الموقع</a>
                         <a class="btn btn-link" href="/#">الرئيسية</a>
-                        <a class="btn btn-link" href="/#hotels">الفنادق</a>
+                        <a class="btn btn-link" href="/#hotels">المنتجات</a>
                     </div>
                 </div>
             </div>
@@ -159,8 +197,7 @@
             <div class="row">
                 <div class="col-md-12 text-center text-md-start mb-3">
                     &copy; <a class="border-bottom" href="#">
-                        معهد الدلتا العالي لنظم المعلومات الإدارية
-                        والمحاسبية بالمنصورة </a>، كل الحقوق محفوظة.
+                        منصه بوينت لتجاره الاكترونيات </a>، كل الحقوق محفوظة.
                     {{ date('Y') }}
                 </div>
             </div>

@@ -58,7 +58,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header text-left ">Mansoura Booking  إنشاء حساب جديد لموقع </div>
+                        <div class="card-header text-left ">Point-Ecommerce  إنشاء حساب جديد لموقع </div>
                         <div class="card-body">
 
                             <form action="{{ route('register') }}" method="POST" style="direction: rtl;">
@@ -86,7 +86,7 @@
                                 <div class="form-group row">
                                     <label for="phone" class="col-md-4 col-form-label text-md-right">رقم الهاتف</label>
                                     <div class="col-md-6">
-                                        <input type="text" id="phone" class="form-control" name="phone" required>
+                                        <input type="text" id="phone" class="form-control" name="phone_number" required>
                                         @if ($errors->has('phone'))
                                             <span class="text-danger">{{ $errors->first('phone') }}</span>
                                         @endif
