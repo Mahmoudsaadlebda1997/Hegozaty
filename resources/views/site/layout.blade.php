@@ -123,7 +123,7 @@
                                 </span>
                             </a>
                             @auth
-                                <a href="{{ route('myOrders') }}" class="nav-item nav-link">مشترياتي</a>
+{{--                                <a href="{{ route('myOrders') }}" class="nav-item nav-link">مشترياتي</a>--}}
                                 <a href="{{ route('logoutUser') }}" class="nav-item nav-link">تسجيل الخروج</a>
                             @endauth
                             @guest
