@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>لوحة تحكم Point e-Commerce</title>
+    <title>لوحة تحكم Hegozaty </title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -88,7 +88,7 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-        <strong>Copyright &copy; {{ date('Y') }} <a href="#">Point E-Commerce</a>.</strong>
+        <strong>Copyright &copy; {{ date('Y') }} <a href="#">Hegozaty</a>.</strong>
         All rights reserved.
     </footer>
 

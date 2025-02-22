@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'phone_number' => '01000000000',
             'address' => 'Egypt',
-            'email' => 'superAdmin@point.com',
+            'email' => 'superAdmin@hegozaty.com',
             'role' => 'superAdmin',
             'password' => Hash::make('123456789'),
         ]);

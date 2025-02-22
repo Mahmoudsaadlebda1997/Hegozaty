@@ -6,19 +6,21 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"> الرئيسية - المستخدمين</h1>
+                    <h1 class="m-0 text-dark">الرئيسية - المستخدمين</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/dashboard">الرئيسية</a></li>
-                        <li class="breadcrumb-item active"> المستخدمين</li>
+                        <li class="breadcrumb-item active">المستخدمين</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
     <!-- /.content-header -->
+
     @include('admin.layouts.message')
+
     <section class="content">
         <div class="row">
             <div class="col-12">
@@ -31,27 +33,39 @@
                         <table id="example1" class="table table-bordered table-striped">
                             <thead>
                             <tr>
+                                <th>الصورة</th>
                                 <th>الاسم</th>
-                                <th>البريد الالكتروني</th>
+                                <th>البريد الإلكتروني</th>
                                 <th>الموبايل</th>
-                                <th>الاجراء المتخذ</th>
+                                <th>الدور</th>
+                                <th>الإجراء المتخذ</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($users as $user)
                                 <tr>
+                                    <td>
+                                        <img src="{{ $user->image ? asset('storage/' . $user->image) : asset('images/default-user.png') }}"
+                                             class="img-fluid rounded-circle"
+                                             style="width: 50px; height: 50px;"
+                                             alt="{{ $user->name }}">
+                                    </td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->phone_number }}</td>
+                                    <td>
+                                        @if($user->role == 'admin')
+                                            <span class="badge bg-danger">مشرف</span>
+                                        @else
+                                            <span class="badge bg-primary">مستخدم عادي</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">تعديل</a>
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="post"
-                                              style="display: inline-block;">
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="post" style="display: inline-block;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"
-                                                    onclick="return confirm('هل أنت متأكد؟')">حذف
-                                            </button>
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -65,9 +79,7 @@
                     <!-- /.card-body -->
                 </div>
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </section>
     <!-- /.content -->
 @endsection
