@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Hegozaty App - Banking Services</title>
+    <title>حجوزاتي للخدمات البنكيه</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
