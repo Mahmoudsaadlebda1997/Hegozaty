@@ -33,6 +33,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>اسم العميل</th>
+                                <th>رقم  العميل</th>
                                 <th>الخدمة</th>
                                 <th>تاريخ الحجز</th>
                                 <th>الحالة</th>
@@ -46,8 +47,23 @@
                                 <tr>
                                     <td>{{ $reservation->id }}</td>
                                     <td>{{ $reservation->user->name ?? 'غير معروف' }}</td>
-                                    <td>{{ $reservation->service->name ?? 'غير معروف' }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($reservation->reservation_time)->format('Y-m-d h:i a') }}</td>
+                                    <td>{{ $reservation->user->phone_number ?? 'غير معروف' }}
+                                    <td>{{ $reservation->service->name ?? 'غير معروف' }}
+                                        @if($reservation->service->service_type === 'phone_banking')
+                                            {{ __('(خدمة هاتفية مصرفية)') }}
+                                        @elseif($reservation->service->service_type === 'branch')
+                                            {{ __('(من الفرع)') }}
+                                        @else
+                                            {{ __('(غير محدد)') }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($reservation->reservation_time)
+                                            {{ \Carbon\Carbon::parse($reservation->reservation_time)->format('Y-m-d h:i a') }}
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                     <td>
                                         @if($reservation->status === 'pending')
                                             <span class="badge badge-warning">قيد الانتظار</span>
@@ -61,19 +77,33 @@
                                     </td>
                                     @if(auth()->user()->role === 'admin' || auth()->user()->role === 'superAdmin')
                                         <td>
-                                            <form action="{{ route('reservations.update-status', $reservation->id) }}" method="post" style="display: inline-block;">
+                                            <form action="{{ route('reservations.update-status', $reservation->id) }}"
+                                                  method="post" style="display: inline-block;">
                                                 @csrf
                                                 @method('PATCH')
-                                                <select name="status" onchange="this.form.submit()" class="form-control">
-                                                    <option value="pending" {{ $reservation->status === 'pending' ? 'selected' : '' }}>قيد الانتظار</option>
-                                                    <option value="accepted" {{ $reservation->status === 'done' ? 'selected' : '' }}>تم </option>
-                                                    <option value="cancelled" {{ $reservation->status === 'cancelled' ? 'selected' : '' }}>تم الإلغاء</option>
+                                                <select name="status" onchange="this.form.submit()"
+                                                        class="form-control">
+                                                    <option
+                                                        value="pending" {{ $reservation->status === 'pending' ? 'selected' : '' }}>
+                                                        قيد الانتظار
+                                                    </option>
+                                                    <option
+                                                        value="accepted" {{ $reservation->status === 'done' ? 'selected' : '' }}>
+                                                        تم
+                                                    </option>
+                                                    <option
+                                                        value="cancelled" {{ $reservation->status === 'cancelled' ? 'selected' : '' }}>
+                                                        تم الإلغاء
+                                                    </option>
                                                 </select>
                                             </form>
-                                            <form action="{{ route('reservations.destroy', $reservation->id) }}" method="post" style="display: inline-block;">
+                                            <form action="{{ route('reservations.destroy', $reservation->id) }}"
+                                                  method="post" style="display: inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد؟')">حذف</button>
+                                                <button type="submit" class="btn btn-danger btn-sm"
+                                                        onclick="return confirm('هل أنت متأكد؟')">حذف
+                                                </button>
                                             </form>
                                         </td>
                                     @endif

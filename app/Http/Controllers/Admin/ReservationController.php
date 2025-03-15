@@ -12,7 +12,7 @@ class ReservationController extends Controller
     public function index()
     {
         $active ='reservations';
-        $reservations = Reservation::paginate(5);
+        $reservations = Reservation::paginate(10);
         return view('admin.reservations.index', compact('reservations','active'));
     }
 
@@ -38,6 +38,6 @@ class ReservationController extends Controller
     public function destroy(Reservation $reservation)
     {
         $reservation->delete();
-        return redirect()->route('services.index')->with('success', 'تم مسح الحجز بنجاح');
+        return redirect()->route('reservations.index')->with('success', 'تم مسح الحجز بنجاح');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Reservation;
 use App\Models\User;
 use App\Rules\SiteTypeEmail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class SiteController extends Controller
@@ -89,7 +90,7 @@ class SiteController extends Controller
 
     public function myReservations()
     {
-        $reservations = auth()->user()->orders()->paginate(5);
+        $reservations = auth()->user()->reservations()->paginate(5);
         return view('site.reservations', compact('reservations'));
     }
 
@@ -110,24 +111,69 @@ class SiteController extends Controller
         $user = Auth::user();
 
         if (!$user) {
-            return redirect()->back()->withErrors(['message' => 'يرجي تسجيل الدخول لاتمام عمليه الحجز.']);
+            return response()->json(['message' => 'يرجى تسجيل الدخول لإتمام عملية الحجز.'], 401);
         }
 
         // Validate request data
         $validatedData = $request->validate([
             'service_id' => 'required|exists:services,id',
-            'reservation_time' => 'required|date|after:now', // Ensure future date
+            'reservation_date' => 'nullable|date|after_or_equal:today',
         ]);
 
-        // Create the reservation
+        $service = Service::findOrFail($validatedData['service_id']);
+
+        if ($service->service_type === 'branch') {
+            if (!$validatedData['reservation_date']) {
+                return response()->json(['message' => 'يرجى اختيار يوم للحجز في الفرع.'], 422);
+            }
+
+            $reservationDate = $validatedData['reservation_date'];
+
+            // Start at 9:00 AM
+            $startTime = Carbon::createFromFormat('Y-m-d H:i', $reservationDate . ' 09:00');
+
+            // Define closing time at 2:00 PM
+            $closingTime = Carbon::createFromFormat('Y-m-d H:i', $reservationDate . ' 14:00');
+
+            // Get existing reservations for the selected day
+            $existingReservations = Reservation::whereDate('reservation_time', $reservationDate)
+                ->orderBy('reservation_time', 'asc')
+                ->get();
+
+            if ($existingReservations->isNotEmpty()) {
+                // Next available time slot in 15-minute increments
+                $lastReservation = $existingReservations->last();
+                $nextAvailableTime = Carbon::parse($lastReservation->reservation_time)->addMinutes(15);
+            } else {
+                // Start at 9:00 AM if no reservations exist
+                $nextAvailableTime = $startTime;
+            }
+
+            // ✅ Block if the next available time exceeds 2:00 PM
+            if ($nextAvailableTime->greaterThan($closingTime)) {
+                return response()->json(['message' => '❌ لا توجد مواعيد متاحة بعد الساعة 2:00 مساءً.'], 422);
+            }
+
+            $reservationTime = $nextAvailableTime->format('Y-m-d H:i:s');
+        } else {
+            // For phone_banking services, no specific reservation time
+            $reservationTime = null;
+        }
+
+        // ✅ Create the reservation
         $reservation = Reservation::create([
-            'reservation_time' => $validatedData['reservation_time'],
+            'reservation_time' => $reservationTime,
             'status' => 'pending',
             'user_id' => $user->id,
             'service_id' => $validatedData['service_id'],
         ]);
 
-        return redirect()->route('reservations.index')->with('success', 'تم عمل الحجز بنجاح.');
+        return response()->json(['message' => '✅ تم إرسال الحجز بنجاح!']);
     }
+
+
+
+
+
 
 }
