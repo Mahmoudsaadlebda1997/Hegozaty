@@ -61,7 +61,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card shadow-lg rounded">
-                        <div class="card-header text-right">إنشاء حساب جديد في <strong>حجوزاتي</strong></div>
+                        <div class="card-header text-right">إنشاء حساب جديد في <strong>بنك الدلتا</strong></div>
                         <div class="card-body">
 
                             <form action="{{ route('register') }}" method="POST" style="direction: rtl;">

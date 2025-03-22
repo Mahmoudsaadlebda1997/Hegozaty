@@ -11,10 +11,10 @@
                         <img src="{{ asset('admin/logo/1.jpg') }}" style="max-height: 850px; max-width: 800px;" alt="Hotel Image">
 
 
-                        <h1 class="m-4 text-dark" style="font-size: 2.5rem; font-weight: bold; color: #333;">لوحة التحكم  - Hegozaty
+                        <h1 class="m-4 text-dark" style="font-size: 2.5rem; font-weight: bold; color: #333;">لوحة التحكم  - بنك الدلتا
                             </h1>
                         <h6 style="font-size: 1.5rem; color: #555; margin-bottom: 20px;">مرحبًا بك في لوحة تحكم
-                            Hegozaty.</h6>
+                            بنك الدلتا.</h6>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->

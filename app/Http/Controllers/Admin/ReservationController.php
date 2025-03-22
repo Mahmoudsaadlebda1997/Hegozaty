@@ -22,16 +22,16 @@ class ReservationController extends Controller
         $active ='reservations';
         return view('admin.reservations.show', compact('reservation','active'));
     }
-    public function updateStatus(Request $request, Reservation $reservation)
+    public function updateStatus(Request $request, $id)
     {
         $request->validate([
             'status' => 'required|in:done,pending,cancelled',
         ]);
 
-        $reservation->status = $request->input('status');
-        $reservation->save();
+        $reservation = Reservation::findOrFail($id); // Find by ID
+        $reservation->update(['status' => $request->status]);
 
-        return redirect()->route('reservations.show', $reservation->id)->with('success', 'تم تحديث حالة الحجز بنجاح');
+        return redirect()->back()->with('success', 'تم تحديث حالة الحجز بنجاح');
     }
 
     // Remove the specified user from the database

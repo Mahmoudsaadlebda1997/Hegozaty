@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>حجوزاتي للخدمات البنكيه</title>
+    <title>بنك الدلتا</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -92,7 +92,7 @@
     <div class="container">
         <!-- Logo -->
         <a href="/" class="navbar-brand d-flex align-items-center">
-            <h4 class="m-0" style="color: #ffc107; font-size: 1.75rem; font-weight: 700;">حجوزاتي</h4>
+            <h4 class="m-0" style="color: #ffc107; font-size: 1.75rem; font-weight: 700;">بنك الدلتا</h4>
         </a>
 
         <!-- Toggler Button -->
@@ -109,7 +109,7 @@
 
                 @auth
                     <a href="{{ route('myReservations') }}" class="nav-item nav-link px-4 text-white fw-semibold"
-                       style="transition: color 0.3s ease;">حجوزاتي</a>
+                       style="transition: color 0.3s ease;">بنك الدلتا</a>
                     <a href="{{ route('logoutUser') }}" class="nav-item nav-link px-4 text-danger fw-semibold"
                        style="transition: color 0.3s ease;">تسجيل الخروج</a>
                 @endauth
@@ -137,7 +137,7 @@
             <div class="col-lg-4 mb-4">
                 <h5 class="text-uppercase mb-3 text-white">حول التطبيق</h5>
                 <p>
-                    تطبيق حجوزاتي يقدم خدمات مصرفية متميزة وسريعة لعملائنا، مع ضمان الأمان وسهولة الاستخدام.
+                    تطبيق بنك الدلتا يقدم خدمات مصرفية متميزة وسريعة لعملائنا، مع ضمان الأمان وسهولة الاستخدام.
                 </p>
             </div>
             <div class="col-lg-4 mb-4">

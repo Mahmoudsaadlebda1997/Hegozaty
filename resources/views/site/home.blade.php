@@ -9,7 +9,7 @@
                     <img class="w-100" src="{{ asset('site/img/about3.jpeg') }}" alt="Hegozaty System">
                     <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                         <div class="p-3" style="max-width: 700px;">
-                            <h1 class="display-3 text-white mb-4 animated slideInDown">مرحبا بك في نظام حجوزاتي</h1>
+                            <h1 class="display-3 text-white mb-4 animated slideInDown">مرحبا بك في نظام بنك الدلتا</h1>
                         </div>
                     </div>
                 </div>
@@ -23,9 +23,9 @@
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6">
-                    <h1 class="mb-4">عن <span class="text-primary text-uppercase">حجوزاتي</span></h1>
+                    <h1 class="mb-4">عن <span class="text-primary text-uppercase">بنك الدلتا</span></h1>
                     <p class="mb-4">
-                        نظام حجوزاتي هو الحل الأمثل لإدارة وحجز الخدمات المصرفية بسهولة وأمان.
+                        نظام بنك الدلتا هو الحل الأمثل لإدارة وحجز الخدمات المصرفية بسهولة وأمان.
                         يقدم تجربة سلسة للمستخدمين لحجز مواعيدهم دون عناء.
                     </p>
                 </div>
@@ -134,7 +134,7 @@
                         </div>
 
                         <!-- Submit Button -->
-                        <div class="col-md-12 text-center">
+                        <div class="col-md-12 text-center" id="submitButton">
                             <button type="submit" class="btn btn-primary px-5 py-2">إرسال الحجز</button>
                         </div>
                     </div>
@@ -161,7 +161,7 @@
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light py-4 mt-5">
         <div class="container text-center">
-            <p class="mb-0">&copy; 2025 حجوزاتي. جميع الحقوق محفوظة.</p>
+            <p class="mb-0">&copy; 2025 بنك الدلتا. جميع الحقوق محفوظة.</p>
         </div>
     </div>
     <!-- Footer End -->
@@ -174,19 +174,37 @@
             const daySelection = document.getElementById('day-selection');
             const successMessage = document.getElementById('success-message');
             const errorMessage = document.getElementById('error-message');
+            const submitButton = document.getElementById('submitButton');
             const form = document.getElementById('reservation-form');
+            const dayOutInput = daySelection.querySelector('input');
 
-            // Only run the script if user is authenticated
+            // ✅ Only run the script if user is authenticated
             if (isAuth) {
-                // Show day selection only for branch services
+                // ✅ Show day selection only for branch services
                 serviceSelect.addEventListener('change', () => {
                     const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
                     const serviceType = selectedOption.getAttribute('data-type');
 
                     daySelection.style.display = (serviceType === 'branch') ? 'block' : 'none';
+
+                    // ✅ Reset value when switching service type
+                    if (serviceType !== 'branch') {
+                        dayOutInput.value = '';
+                    }
                 });
 
-                // Form submit using AJAX
+                // ✅ Disable Friday and Saturday in date picker
+                dayOutInput.addEventListener('input', (e) => {
+                    const day = new Date(e.target.value).getDay();
+                    if (day === 5 || day === 6) {
+                        dayOutInput.setCustomValidity('الحجز غير متاح يوم الجمعة أو السبت.');
+                        dayOutInput.reportValidity();
+                    } else {
+                        dayOutInput.setCustomValidity('');
+                    }
+                });
+
+                // ✅ Form submit using AJAX
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault(); // Prevent page reload
 
@@ -194,13 +212,16 @@
                     const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
                     const serviceType = selectedOption.getAttribute('data-type');
 
-                    // Validation for branch service requiring day selection
-                    if (serviceType === 'branch' && !daySelection.querySelector('input').value) {
+                    // ✅ Validation for branch service requiring day selection
+                    if (serviceType === 'branch' && !dayOutInput.value) {
                         alert('الرجاء اختيار اليوم للخدمة من الفرع.');
                         return;
                     }
 
                     try {
+                        submitButton.disabled = true;
+                        submitButton.innerHTML = 'جاري الإرسال...';
+
                         const response = await fetch(form.action, {
                             method: 'POST',
                             body: formData,
@@ -212,7 +233,7 @@
                         if (response.ok) {
                             successMessage.style.display = 'block';
                             errorMessage.style.display = 'none';
-
+                            submitButton.style.display = 'none';
                             // ✅ Reset form after successful submission
                             form.reset();
                             daySelection.style.display = 'none';
@@ -222,20 +243,23 @@
                         }
                     } catch (error) {
                         showError('حدث خطأ أثناء تقديم الحجز.');
+                    } finally {
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = 'إرسال الحجز';
                     }
                 });
 
-                // Hide success message
+                // ✅ Hide success message
                 window.hideSuccessMessage = () => {
                     successMessage.style.display = 'none';
                 };
 
-                // Hide error message
+                // ✅ Hide error message
                 window.hideErrorMessage = () => {
                     errorMessage.style.display = 'none';
                 };
 
-                // Show error message
+                // ✅ Show error message
                 function showError(message) {
                     errorMessage.querySelector('.alert-danger').innerHTML = `❌ ${message}`;
                     errorMessage.style.display = 'block';
@@ -244,6 +268,7 @@
             }
         });
     </script>
+
 
 
 @endsection

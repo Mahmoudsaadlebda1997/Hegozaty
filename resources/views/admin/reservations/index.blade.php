@@ -49,9 +49,9 @@
                                     <td>{{ $reservation->user->name ?? 'غير معروف' }}</td>
                                     <td>{{ $reservation->user->phone_number ?? 'غير معروف' }}
                                     <td>{{ $reservation->service->name ?? 'غير معروف' }}
-                                        @if($reservation->service->service_type === 'phone_banking')
+                                        @if($reservation->service?->service_type === 'phone_banking')
                                             {{ __('(خدمة هاتفية مصرفية)') }}
-                                        @elseif($reservation->service->service_type === 'branch')
+                                        @elseif($reservation->service?->service_type === 'branch')
                                             {{ __('(من الفرع)') }}
                                         @else
                                             {{ __('(غير محدد)') }}
@@ -88,7 +88,7 @@
                                                         قيد الانتظار
                                                     </option>
                                                     <option
-                                                        value="accepted" {{ $reservation->status === 'done' ? 'selected' : '' }}>
+                                                        value="done" {{ $reservation->status === 'done' ? 'selected' : '' }}>
                                                         تم
                                                     </option>
                                                     <option

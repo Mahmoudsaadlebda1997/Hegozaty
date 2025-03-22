@@ -8,11 +8,11 @@
          style="background-image: url({{ asset('site/img/carousel-1.jpg') }});">
         <div class="container-fluid page-header-inner py-5">
             <div class="container text-center pb-5">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">حجوزاتي</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">بنك الدلتا</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center text-uppercase">
                         <li class="breadcrumb-item"><a href="/">الرئيسية </li>
-                        <li class="breadcrumb-item text-white active" aria-current="page"> / حجوزاتي </li>
+                        <li class="breadcrumb-item text-white active" aria-current="page"> / بنك الدلتا </li>
                     </ol>
                 </nav>
             </div>
@@ -22,7 +22,7 @@
 
     <div class="container mb-5" dir="rtl">
         <div class="row session-title mt-3 mb-4">
-            <h2 class="text-center text-primary">حجوزاتي</h2>
+            <h2 class="text-center text-primary">بنك الدلتا</h2>
         </div>
 
         @if(count($reservations) > 0)
